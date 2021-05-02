@@ -162,7 +162,7 @@
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
-    <ClCompile Include="src\Model.cpp" />
+    <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -181,7 +181,8 @@
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameObject.h" />
-    <ClInclude Include="src\Model.h" />
+    <ClInclude Include="src\GLMacro.h" />
+    <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\Time.h" />

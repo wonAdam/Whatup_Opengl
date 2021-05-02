@@ -21,7 +21,8 @@ void Initialization_ImGui(GLFWwindow* window);
 int main(void)
 {
     GLFWwindow* window;
-    if (!Initialize_glfw(window)) {
+    if (!Initialize_glfw(window)) 
+    {
         std::cout << "ERROR::GLFW::INTIALIZATION::FAIL" << std::endl;
         exit(-1);
     }
@@ -37,10 +38,10 @@ int main(void)
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
-        Game::Update(glfwGetTime());
-
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
+
+        Game::Update(glfwGetTime());
 
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
