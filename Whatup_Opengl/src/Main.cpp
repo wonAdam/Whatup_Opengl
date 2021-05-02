@@ -44,7 +44,8 @@ int main(void)
     };
     std::vector<unsigned int> indices = { 0,1,2 };
     std::vector<Texture> textures = {
-        Texture("img/container2.png", "diffuse")
+        Texture("img/container2.png", Texture::DIFFUSE),
+        Texture("img/doge.png", Texture::DIFFUSE)
     };
 
     Mesh* mesh = new Mesh(vertices, indices, textures);
@@ -54,7 +55,6 @@ int main(void)
         /* Render here */
         glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
 
         mesh->Draw(shader);
         GuiUpdate();

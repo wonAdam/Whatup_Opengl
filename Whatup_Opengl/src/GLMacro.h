@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <GL/glew.h>
+
 inline static void GLClearError() { while (glGetError() != GL_NO_ERROR); }
 
 static bool GLLogCall(const char* function, const char* file, const int line)
