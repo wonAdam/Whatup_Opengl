@@ -9,9 +9,13 @@ public:
 
 public:
 	virtual void Update(float deltaTime) = 0;
+	glm::vec3 GetForward();
+	glm::vec3 GetUp();
+	glm::vec3 GetRight();
 
 protected:
 	GameObject(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
+	GameObject(const GameObject& rhs) = delete;
 	virtual ~GameObject();
 };
 

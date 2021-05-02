@@ -27,6 +27,8 @@ private:
 
 public:
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+	Mesh(std::vector<Vertex> vertices, std::vector<Texture> textures);
+	Mesh(const Mesh& rhs) = delete;
 	virtual ~Mesh();
 
 	void Draw(Shader& shader);

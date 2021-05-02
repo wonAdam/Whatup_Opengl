@@ -1,5 +1,7 @@
 #pragma once
 
+#include <GL/glew.h>
+
 #include <glm/glm.hpp>
 #include <string>
 
@@ -10,6 +12,7 @@ public:
 
 public:
 	Shader(const char* vShader, const char* fShader);
+	Shader(const Shader& rhs) = delete;
 	virtual ~Shader();
 	void Use() const;
 	void SetBool(const std::string& name, bool value) const;
@@ -21,7 +24,7 @@ public:
 
 private:
 	void read_shader(const char* path, std::string& result);
-	void compile_shader(const char* source, unsigned int& result);
+	void compile_shader(const char* source, unsigned int& result, GLenum type);
 	void create_program(unsigned int& vShader, unsigned int& fShader);
 };
 

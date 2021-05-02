@@ -11,10 +11,18 @@ Vertex::Vertex(glm::vec3 position, glm::vec3 normal, glm::vec2 textureCoord)
 {
 }
 
+
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
 	: _vertices(vertices), _indices(indices), _textures(textures)
 {
 	initialization();
+}
+
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<Texture> textures)
+    : _vertices(vertices), _textures(textures)
+{
+    for (unsigned int i = 0; i < vertices.size(); i++)
+        _indices.push_back(i);
 }
 
 Mesh::~Mesh()
@@ -23,6 +31,7 @@ Mesh::~Mesh()
 
 void Mesh::Draw(Shader& shader)
 {
+    // Set Textures
     unsigned int diffuseNr = 0;
     unsigned int specularNr = 0;
     for (unsigned int i = 0; i < _textures.size(); i++)

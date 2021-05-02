@@ -6,7 +6,8 @@ inline static void GLClearError() { while (glGetError() != GL_NO_ERROR); }
 
 static bool GLLogCall(const char* function, const char* file, const int line)
 {
-    while (GLenum error = glGetError())
+    GLenum error;
+    while ((error = glGetError()) != GL_NO_ERROR)
     {
         std::cout << reinterpret_cast<const char*>(glewGetErrorString(error)) << std::endl;
         return false;

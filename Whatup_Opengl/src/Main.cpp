@@ -35,11 +35,16 @@ int main(void)
 
     Initialization_ImGui(window);
 
+
+    Game::Initialize();
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
 
         Game::Update(glfwGetTime());
 

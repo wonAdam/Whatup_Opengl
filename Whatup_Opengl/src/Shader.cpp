@@ -17,8 +17,8 @@ Shader::Shader(const char* vShaderPath, const char* fShaderPath)
     read_shader(fShaderPath, fSource);
 
     unsigned int vShader, fShader;
-    compile_shader(vSource.c_str(), vShader);
-    compile_shader(fSource.c_str(), fShader);
+    compile_shader(vSource.c_str(), vShader, GL_VERTEX_SHADER);
+    compile_shader(fSource.c_str(), fShader, GL_FRAGMENT_SHADER);
 
     create_program(vShader, fShader);
 }
@@ -51,7 +51,7 @@ void Shader::SetFloat(const std::string& name, float value) const
 {
     Use();
     GLCall(int location = glGetUniformLocation(_id, name.c_str()));
-    GLCall(glUniform1i(location, value));
+    GLCall(glUniform1f(location, value));
 }
 
 void Shader::SetVec3(const std::string& name, glm::vec3 value) const
@@ -99,12 +99,12 @@ void Shader::read_shader(const char* path, std::string& result)
     }
 }
 
-void Shader::compile_shader(const char* source, unsigned int& result)
+void Shader::compile_shader(const char* source, unsigned int& result, GLenum type)
 {
     int success;
 
     // vertex Shader
-    GLCall(result = glCreateShader(GL_VERTEX_SHADER));
+    GLCall(result = glCreateShader(type));
     GLCall(glShaderSource(result, 1, &source, NULL));
     GLCall(glCompileShader(result));
     // print compile errors if any

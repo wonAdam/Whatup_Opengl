@@ -9,8 +9,8 @@ in vec3 FragPos;
 struct DirLight {
     vec3 direction;
   
-    vec3 ambient;
     vec3 diffuse;
+    vec3 ambient;
     vec3 specular;
 };  
 #define MAX_DIRLIGHT 10  
@@ -24,8 +24,8 @@ struct PointLight {
     float linear;
     float quadratic;  
 
-    vec3 ambient;
     vec3 diffuse;
+    vec3 ambient;
     vec3 specular;
 };  
 #define MAX_POINTLIGHT 10  
@@ -38,12 +38,8 @@ struct SpotLight {
     float cutOff;    
     float outerCutOff;
 
-    float constant;
-    float linear;
-    float quadratic; 
-
-    vec3 ambient;
     vec3 diffuse;
+    vec3 ambient;
     vec3 specular;
 };  
 #define MAX_SPOTLIGHT 10  
@@ -160,19 +156,13 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, vec
         vec3 reflectDir = reflect(-lightDir, normal);
         spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     }
-
-    // attenuation
-    float distance    = length(light.position - fragPos);
-    float attenuation = 1.0 / (light.constant + light.linear * distance + 
-  			     light.quadratic * (distance * distance));   
+ 
 
     // combine results
     vec3 ambient  = light.ambient  * diffuse_tex;
     vec3 diffuse  = light.diffuse  * diff * diffuse_tex;
     vec3 specular = light.specular * spec * diffuse_tex;
-//    ambient *= attenuation;
-//    diffuse *= attenuation;
-//    specular *= attenuation;
+
     ambient *= intensity;
     diffuse *= intensity;
     specular *= intensity;
