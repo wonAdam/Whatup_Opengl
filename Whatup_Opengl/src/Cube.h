@@ -17,7 +17,7 @@ public:
 	std::shared_ptr<Shader> _shader;
 
 public:
-	Cube(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, Shader* shader);
+	Cube(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, std::shared_ptr<Shader> shader);
 	Cube(const Cube& rhs) = delete;
 	virtual ~Cube();
 	virtual void Update(float deltaTime) override;

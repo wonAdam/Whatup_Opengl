@@ -154,7 +154,30 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\vertexshader.vert" />
-    <None Include="src\fragmentshader.frag" />
+    <None Include="shaders\vertexshader.vert" />
+    <None Include="shaders\fragmentshader.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="img\container.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\container2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\container2_specular.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\default_texture.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\doge.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\javatwo.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\wall.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

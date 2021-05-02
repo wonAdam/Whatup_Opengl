@@ -200,8 +200,17 @@
     <ClInclude Include="src\Time.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\fragmentshader.frag" />
-    <None Include="src\vertexshader.vert" />
+    <None Include="shaders\fragmentshader.frag" />
+    <None Include="shaders\vertexshader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="img\container.jpg" />
+    <Image Include="img\container2.png" />
+    <Image Include="img\container2_specular.png" />
+    <Image Include="img\default_texture.jpg" />
+    <Image Include="img\doge.png" />
+    <Image Include="img\javatwo.jpg" />
+    <Image Include="img\wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -45,7 +45,6 @@ int main(void)
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-
         Game::Update(glfwGetTime());
 
         // Start the Dear ImGui frame
@@ -113,7 +112,7 @@ bool Initialization_glew()
         return false;
 
     glViewport(0, 0, 800, 600);
-    glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_DEPTH_TEST);
 
     return true;
 }

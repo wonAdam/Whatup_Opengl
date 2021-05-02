@@ -26,9 +26,8 @@ void Game::Initialize()
 	GameCamera = new Camera(glm::vec3(0.0f, 0.0f, 5.0f));
 	GameTime = new Time();
 
-	std::shared_ptr<Shader> shader(new Shader("src/vertexshader.vert", "src/fragmentshader.frag"));
-	Cube* cube = new Cube(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(1.0f), shader.get());
-	
+	std::shared_ptr<Shader> shader(new Shader("shaders/vertexshader.vert", "shaders/fragmentshader.frag"));
+	Cube* cube = new Cube(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(1.0f), shader);
 	Instance->_gameObjects.push_back(cube);
 }
 

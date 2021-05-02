@@ -24,6 +24,7 @@ class Camera : public GameObject
 public:
 	float MovementSpeed = SPEED;
 	float MouseSensitivity = SENSITIVITY;
+	float Zoom = ZOOM;
 
 public:
 	Camera(glm::vec3 position, glm::vec3 rotation = glm::vec3(PITCH, YAW, 0.0f));
@@ -32,6 +33,7 @@ public:
 	virtual void Update(float deltaTime) override;
 
 	glm::mat4 GetViewMatrix();
+	glm::mat4 GetProjMatrix();
 	void ProcessKeyboard(Camera_Movement direction, float deltaTime);
     void ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch = true);
 };

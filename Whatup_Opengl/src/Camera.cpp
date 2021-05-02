@@ -1,6 +1,9 @@
 #include "Camera.h"
 
 #include <glm/gtx/euler_angles.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+#include "Game.h"
 
 Camera::Camera(glm::vec3 position, glm::vec3 rotation)
     : GameObject(position, rotation, glm::vec3(1.0f))
@@ -13,7 +16,15 @@ Camera::~Camera()
 
 glm::mat4 Camera::GetViewMatrix()
 {
-    return glm::eulerAngleYXZ(_rotation.y, _rotation.x, _rotation.z);
+    return glm::lookAt(
+        glm::vec3(0.0f, 0.0f, 5.0f), 
+        glm::vec3(0.0f, 0.0f, 5.0f) + Game::Instance->_gameObjects[0]->_position,
+        glm::vec3(0.0f, 1.0f, 0.0f));
+}
+
+glm::mat4 Camera::GetProjMatrix()
+{
+    return glm::perspective(glm::radians(Zoom), 800.0f / 600.0f, 0.1f, 100.0f);
 }
 
 void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
