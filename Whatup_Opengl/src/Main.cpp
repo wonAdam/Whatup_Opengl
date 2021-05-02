@@ -11,6 +11,9 @@
 #include <glm/glm.hpp>
 #include <assimp/Importer.hpp>
 
+#include "Game.h"
+#include "Input.h"
+
 bool Initialize_glfw(GLFWwindow*& window);
 bool Initialization_glew();
 void Initialization_ImGui(GLFWwindow* window);
@@ -34,6 +37,8 @@ int main(void)
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
+        Game::Update(glfwGetTime());
+
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -86,6 +91,11 @@ bool Initialize_glfw(GLFWwindow*& window)
     }
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
+
+    // Input Callbacks
+    glfwSetKeyCallback(window, Input::KeyboardInputHandler);
+    glfwSetCursorPosCallback(window, Input::MousePosInputHandler);
+
     return true;
 }
 
