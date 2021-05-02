@@ -45,6 +45,12 @@
     <ClCompile Include="src\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\stb_image\stb_image.h">
@@ -77,9 +83,41 @@
     <ClInclude Include="src\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GLMacro.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\VertexShader.vert" />
     <None Include="shaders\FragmentShader.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="img\container.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\container2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\container2_specular.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\default_texture.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\doge.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\javatwo.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="img\wall.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

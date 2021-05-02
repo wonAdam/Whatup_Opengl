@@ -11,6 +11,9 @@
 #include <glm/glm.hpp>
 #include <assimp/Importer.hpp>
 #include "Shader.h"
+#include "Texture.h"
+#include "Mesh.h"
+#include "GLMacro.h"
 
 bool Initialize_glfw(GLFWwindow*& window);
 void GuiUpdate();
@@ -23,74 +26,28 @@ const unsigned int SCR_HEIGHT = 600;
 
 int main(void)
 {
-    // glfw: initialize and configure
-        // ------------------------------
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-
-    // glfw window creation
-    // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
-    if (window == NULL)
-    {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-    //glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
-    // glad: load all OpenGL function pointers
-    glewExperimental = GL_TRUE;
-    GLenum err = glewInit();
-    if (GLEW_OK != err)
-        return false;
-
-    glViewport(0, 0, 800, 600);
-    //glEnable(GL_DEPTH_TEST);
+    GLFWwindow* window;
+    Initialize_glfw(window);
+    Initialization_glew();
+    Initialization_ImGui(window);
 
 
     Shader shader("shaders/VertexShader.vert", "shaders/FragmentShader.frag");
 
-
     // set up vertex data (and buffer(s)) and configure vertex attributes
    // ------------------------------------------------------------------
-    float vertices[] = {
-        // positions         // colors
-         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  // bottom right
-        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  // bottom left
-         0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f   // top 
+    std::vector<Vertex> vertices = {
+        // positions         // normals             // tex coord
+        Vertex( 0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f, 1.0f, 0.0f),  // bottom right
+        Vertex(-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f, 0.0f, 0.0f),  // bottom left
+        Vertex(0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f, 0.5f, 1.0f)   // top 
+    };
+    std::vector<unsigned int> indices = { 0,1,2 };
+    std::vector<Texture> textures = {
+        Texture("img/container2.png", "diffuse")
     };
 
-    unsigned int VBO, VAO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    // color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-    // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
-    // glBindVertexArray(0);
-
-
-
-
-
-
-
+    Mesh* mesh = new Mesh(vertices, indices, textures);
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -98,21 +55,9 @@ int main(void)
         glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        
-        
-        // render the triangle
-        shader.use();
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-        
-        
-        
-        
-        
-        //GuiUpdate();
 
-
-
+        mesh->Draw(shader);
+        GuiUpdate();
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
@@ -121,9 +66,9 @@ int main(void)
     }
 
     // Cleanup
-    //ImGui_ImplOpenGL3_Shutdown();
-    //ImGui_ImplGlfw_Shutdown();
-    //ImGui::DestroyContext();
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
 
     glfwTerminate();
     return 0;
@@ -177,7 +122,7 @@ bool Initialization_glew()
         return false;
 
     glViewport(0, 0, 800, 600);
-    glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_DEPTH_TEST);
 
     return true;
 }

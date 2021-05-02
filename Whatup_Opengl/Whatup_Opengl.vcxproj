@@ -159,8 +159,10 @@
     <ClCompile Include="dependencies\imgui\imgui_tables.cpp" />
     <ClCompile Include="dependencies\imgui\imgui_widgets.cpp" />
     <ClCompile Include="dependencies\stb_image\stb_image.cpp" />
+    <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\imgui\imconfig.h" />
@@ -172,11 +174,23 @@
     <ClInclude Include="dependencies\imgui\imstb_textedit.h" />
     <ClInclude Include="dependencies\imgui\imstb_truetype.h" />
     <ClInclude Include="dependencies\stb_image\stb_image.h" />
+    <ClInclude Include="src\GLMacro.h" />
+    <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Shader.h" />
+    <ClInclude Include="src\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\FragmentShader.frag" />
     <None Include="shaders\VertexShader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="img\container.jpg" />
+    <Image Include="img\container2.png" />
+    <Image Include="img\container2_specular.png" />
+    <Image Include="img\default_texture.jpg" />
+    <Image Include="img\doge.png" />
+    <Image Include="img\javatwo.jpg" />
+    <Image Include="img\wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
