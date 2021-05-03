@@ -22,9 +22,6 @@ void SpotLight::LoadUniformValue(unsigned int index, Shader& shader)
     shader.setVec3("spotLights[" + std::to_string(index) + "].specular", _specular);
     shader.setVec3("spotLights[" + std::to_string(index) + "].position", _transform._position);
     shader.setVec3("spotLights[" + std::to_string(index) + "].direction", _transform.GetForward());
-    shader.setFloat("spotLights[" + std::to_string(index) + "].constant", _constant);
-    shader.setFloat("spotLights[" + std::to_string(index) + "].linear", _linear);
-    shader.setFloat("spotLights[" + std::to_string(index) + "].quadratic", _quadratic);
     shader.setFloat("spotLights[" + std::to_string(index) + "].cutOff", _cutOff);
     shader.setFloat("spotLights[" + std::to_string(index) + "].outerCutOff", _outerCutOff);
 

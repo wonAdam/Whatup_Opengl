@@ -14,16 +14,25 @@ struct Transform
 
 	glm::mat4 GetModelMatrix() const
 	{
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), _scale);
 		glm::mat4 trans = glm::translate(glm::mat4(1.0f), _position);
-
 		float radX = glm::radians(_rotation.x), radY = glm::radians(_rotation.y), radZ = glm::radians(_rotation.z);
 		glm::mat4 rot = glm::eulerAngleYXZ(radY, radX, radZ);
-		return trans * rot;
+		return trans * rot * scale;
 	}
 
 	glm::vec3 GetForward() const
 	{
-		glm::vec4 forward = glm::vec4(0.0f, 0.0f, 1.0f, 0.0f);
-		return GetModelMatrix() * forward;
+		return GetModelMatrix() * glm::vec4(0.0f, 0.0f, -1.0f, 0.0f);
+	}
+
+	glm::vec3 GetUp() const
+	{
+		return GetModelMatrix() * glm::vec4(0.0f, 1.0f, 0.0f, 0.0f);
+	}
+
+	glm::vec3 GetRight() const
+	{
+		return GetModelMatrix() * glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
 	}
 };

@@ -4,9 +4,12 @@
 
 #include <glm/glm.hpp>
 
+// DEFAULT VALUES
 const float FAR = 100.0f;
 const float NEAR = 0.1f;
 const float FOV = 45.0f;
+const float SPEED = 20.0f;
+const float SENSITIVITY = 0.1f;
 
 class Camera : public GameObject
 {
@@ -14,6 +17,9 @@ public:
 	float fov = FOV;
 	float near = NEAR;
 	float far = FAR;
+	float movementSpeed = SPEED;
+	float sensitiviy = SENSITIVITY;
+	bool FPSMode = true;
 
 public:
 	Camera(Transform transform);
@@ -26,5 +32,7 @@ public:
 	glm::mat4 GetViewMatrix();
 	glm::mat4 GetProjMatrix();
 
+	void Rotate(float xoffset, float yoffset);
+	void Move(float xoffset, float yoffset, float zoffset);
 };
 

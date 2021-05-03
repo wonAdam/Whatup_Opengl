@@ -15,6 +15,7 @@ public: // Global Instances
 	static Game* Instance;
 	static Camera* GameCamera;
 	static Gui* GameGui;
+	static GLFWwindow* GameWindow;
 
 public: // GameObjects
 	std::vector<GameObject*> _gameObjects;
@@ -22,6 +23,11 @@ public: // GameObjects
 
 private:
 	static float lastFrame;
+	static float lastMouseX;
+	static float lastMouseY;
+	static bool firstMouseMove;
+
+public:
 	static float deltaTime;
 
 private:
@@ -35,5 +41,11 @@ public:
 	static void End();
 
 	static void LoadLightUniform(Shader& shader);
+	static void CursorDisable();
+	static void CursorEnable();
+
+private:
+	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+	static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 };
 
