@@ -30,7 +30,7 @@ glm::mat4 Camera::GetViewMatrix()
 
 glm::mat4 Camera::GetProjMatrix()
 {
-	return glm::perspective(glm::radians(fov), 800.0f / 600.0f, near, far);;
+	return glm::perspective(glm::radians(fov), 800.0f / 600.0f, near, far);
 }
 
 void Camera::Rotate(float xoffset, float yoffset)

@@ -56,18 +56,18 @@ void Game::Initialize(float time, GLFWwindow* window)
 	//DirectionalLight* dirLight = new DirectionalLight("Directional Light", glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 	//Instance->_lights.push_back(dirLight);
 	//GameGui->RegisterTransformPanel(dirLight);
-	//PointLight* pLight = new PointLight("Point Light", glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-	//Instance->_lights.push_back(pLight);
-	//GameGui->RegisterTransformPanel(pLight);
-	SpotLight* sLight = new SpotLight("Spot Light", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-	Instance->_lights.push_back(sLight);
-	GameGui->RegisterTransformPanel(sLight);
+	PointLight* pLight = new PointLight("Point Light", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	Instance->_lights.push_back(pLight);
+	GameGui->RegisterTransformPanel(pLight);
+	//SpotLight* sLight = new SpotLight("Spot Light", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.75f, 0.75f, 0.75f), glm::vec3(1.0f, 1.0f, 1.0f));
+	//Instance->_lights.push_back(sLight);
+	//GameGui->RegisterTransformPanel(sLight);
 
 	lastFrame = time;
 	deltaTime = 0.0f;
 
 	// --- Game Initialization --- //
-	Triangle* triangle = new Triangle("Triangle", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	Triangle* triangle = new Triangle("Triangle", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
 	GameGui->RegisterTransformPanel(triangle);
 	Instance->_gameObjects.push_back(triangle);
 }
@@ -139,7 +139,10 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
 		GameCamera->Move(0.0, -1.0, 0.0f);
 	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+	{
 		GameCamera->FPSMode = !GameCamera->FPSMode;
+		firstMouseMove = true;
+	}
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 }

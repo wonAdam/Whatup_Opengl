@@ -5,10 +5,10 @@
 
 class PointLight : public Light, public GameObject
 {
-private:
-	const float _constant = 1.0f;
-	const float _linear = 0.09f;
-	const float _quadratic = 0.032f;
+public:
+	float _constant = 1.0f;
+	float _linear = 0.09f;
+	float _quadratic = 0.032f;
 
 
 public:

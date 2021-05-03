@@ -5,9 +5,9 @@
 
 class SpotLight : public Light, public GameObject
 {
-private:
-	const float _cutOff = glm::cos(glm::radians(12.5f));
-	const float _outerCutOff = glm::cos(glm::radians(15.0f));
+public:
+	float _cutOff = glm::cos(glm::radians(12.5f));
+	float _outerCutOff = glm::cos(glm::radians(15.0f));
 
 public:
 	SpotLight(std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);

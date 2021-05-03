@@ -5,6 +5,10 @@
 #include "Transform.h"
 #include "Game.h"
 #include "Camera.h"
+#include "Light.h"
+#include "SpotLight.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
 
 Gui::Gui(GLFWwindow* window)
 {
@@ -27,6 +31,7 @@ void Gui::Update()
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
+    // --- Camera Mode --- //
     ImGui::Begin("Mouse Mode");
     if (Game::Instance->GameCamera->FPSMode == false)
     {
@@ -74,5 +79,27 @@ void Gui::showTransformPanel(GameObject* registerer)
     ImGui::Text("Forward\t\t(%.3f, %.3f, %.3f)", forward.x, forward.y, forward.z);
     ImGui::Text("Up\t\t\t(%.3f, %.3f, %.3f)", up.x, up.y, up.z);
     ImGui::Text("Right\t\t(%.3f, %.3f, %.3f)", right.x, right.y, right.z);
+    
+    Light* li = dynamic_cast<Light*>(registerer);
+    if (li != nullptr)
+    {
+        ImGui::SliderFloat3("Ambient", glm::value_ptr(li->_ambient), 0.f, 1.f);
+        ImGui::SliderFloat3("Diffuse", glm::value_ptr(li->_diffuse), 0.f, 1.f);
+        ImGui::SliderFloat3("Specular", glm::value_ptr(li->_specular), 0.f, 1.f);
+    }
+    SpotLight* sl = dynamic_cast<SpotLight*>(registerer);
+    if (sl != nullptr)
+    {
+        ImGui::SliderFloat("CutOff", &sl->_cutOff, 0.f, glm::pi<float>());
+        ImGui::SliderFloat("OuterCutOff", &sl->_outerCutOff, 0.f, glm::pi<float>());
+    }
+    PointLight* pl = dynamic_cast<PointLight*>(registerer);
+    if (pl != nullptr)
+    {
+        ImGui::SliderFloat("Constant", &pl->_constant, 0.f, 3.f);
+        ImGui::SliderFloat("Linear", &pl->_linear, 0.f, 1.f);
+        ImGui::SliderFloat("Quadratic", &pl->_quadratic, 0.f, 1.f);
+    }
+
     ImGui::End();
 }
