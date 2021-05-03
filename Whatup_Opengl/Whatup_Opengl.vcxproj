@@ -151,6 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\DirectionalLight.cpp" />
+    <ClCompile Include="src\PointLight.cpp" />
+    <ClCompile Include="src\SpotLight.cpp" />
+    <ClCompile Include="src\Light.cpp" />
+    <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\Gui.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Camera.cpp" />
@@ -170,6 +175,11 @@
     <ClCompile Include="src\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\DirectionalLight.h" />
+    <ClInclude Include="src\PointLight.h" />
+    <ClInclude Include="src\SpotLight.h" />
+    <ClInclude Include="src\Light.h" />
+    <ClInclude Include="src\Model.h" />
     <ClInclude Include="src\Gui.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Camera.h" />

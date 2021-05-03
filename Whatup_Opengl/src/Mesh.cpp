@@ -51,12 +51,16 @@ void Mesh::Draw(Shader& shader, const Transform& transform)
     }
     glActiveTexture(GL_TEXTURE0);
 
-    // draw mesh
+    // Set MVP
     shader.use();
     shader.setMat4("model", transform.GetModelMatrix());
     shader.setMat4("view", Game::GameCamera->GetViewMatrix());
     shader.setMat4("proj", Game::GameCamera->GetProjMatrix());
 
+    // Set Light
+    Game::LoadLightUniform(shader);
+
+    // draw mesh
     glBindVertexArray(_VAO);
     glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);

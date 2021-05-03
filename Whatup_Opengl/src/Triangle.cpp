@@ -15,7 +15,5 @@ Triangle::~Triangle()
 
 void Triangle::Update(float deltaTime)
 {
-
-
 	_mesh->Draw(*_shader, _transform);
 }

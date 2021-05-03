@@ -20,4 +20,10 @@ struct Transform
 		glm::mat4 rot = glm::eulerAngleYXZ(radY, radX, radZ);
 		return trans * rot;
 	}
+
+	glm::vec3 GetForward() const
+	{
+		glm::vec4 forward = glm::vec4(0.0f, 0.0f, 1.0f, 0.0f);
+		return GetModelMatrix() * forward;
+	}
 };

@@ -5,6 +5,8 @@
 class Camera;
 class GameObject;
 class Gui;
+class Light;
+class Shader;
 struct GLFWwindow;
 
 class Game
@@ -16,6 +18,7 @@ public: // Global Instances
 
 public: // GameObjects
 	std::vector<GameObject*> _gameObjects;
+	std::vector<Light*> _lights;
 
 private:
 	static float lastFrame;
@@ -30,5 +33,7 @@ public:
 	static void Initialize(float time, GLFWwindow* window);
 	static void Update(float time);
 	static void End();
+
+	static void LoadLightUniform(Shader& shader);
 };
 
