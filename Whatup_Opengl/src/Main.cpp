@@ -12,29 +12,22 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "GLMacro.h"
-#include "Triangle.h"
+#include "Game.h"
 
 bool Initialize_glfw(GLFWwindow*& window);
-void GuiUpdate(Triangle& triangle);
 bool Initialization_glew();
-void Initialization_ImGui(GLFWwindow* window);
 
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
-
-
-float _lastFrame = 0.0f;
-float _deltaTime = 0.0f;
 
 int main(void)
 {
     GLFWwindow* window;
     Initialize_glfw(window);
     Initialization_glew();
-    Initialization_ImGui(window);
 
-    Triangle triangle(glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+    Game::Initialize(glfwGetTime(), window);
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
@@ -43,12 +36,7 @@ int main(void)
         glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        float currFrame = glfwGetTime();
-        _deltaTime = currFrame - _lastFrame;
-        _lastFrame = currFrame;
-
-        triangle.Update(_deltaTime);
-        GuiUpdate(triangle);
+        Game::Update(glfwGetTime());
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
@@ -57,37 +45,11 @@ int main(void)
     }
 
     // Cleanup
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
-
+    Game::End();
     glfwTerminate();
     return 0;
 }
 
-void GuiUpdate(Triangle& triangle)
-{
-    // Start the Dear ImGui frame
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
-
-    ImGui::Begin("Hello, ImGui!");                          // Create a window called "Hello, world!" and append into it.
-    ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-    ImGui::Button("Button");
-    ImGui::SameLine();
-    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-    ImGui::End();
-
-    ImGui::Begin("Triangle");
-    ImGui::SliderFloat3("Position", glm::value_ptr(triangle._position), -20.0f, 20.0f);
-    ImGui::SliderFloat3("Rotation", glm::value_ptr(triangle._rotation), -180.0f, 180.0f);
-
-    ImGui::End();
-
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-}
 
 bool Initialize_glfw(GLFWwindow*& window)
 {

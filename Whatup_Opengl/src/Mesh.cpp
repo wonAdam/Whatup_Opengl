@@ -1,10 +1,15 @@
 #include "Mesh.h"
 
 #include <GL/glew.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "GLMacro.h"
 #include "Shader.h"
 #include "Texture.h"
+#include "GameObject.h"
+#include "Transform.h"
+#include "Game.h"
+#include "Camera.h"
 
 Vertex::Vertex(glm::vec3 position, glm::vec3 normal, glm::vec2 textureCoord)
     : _position(position), _normal(normal), _textureCoord(textureCoord)
@@ -26,7 +31,7 @@ Mesh::~Mesh()
 {
 }
 
-void Mesh::Draw(Shader& shader)
+void Mesh::Draw(Shader& shader, const Transform& transform)
 {
     unsigned int diffuseNr = 0;
     unsigned int specularNr = 0;
@@ -48,6 +53,10 @@ void Mesh::Draw(Shader& shader)
 
     // draw mesh
     shader.use();
+    shader.setMat4("model", transform.GetModelMatrix());
+    shader.setMat4("view", Game::GameCamera->GetViewMatrix());
+    shader.setMat4("proj", Game::GameCamera->GetProjMatrix());
+
     glBindVertexArray(_VAO);
     glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);

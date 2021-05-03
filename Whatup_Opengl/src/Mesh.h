@@ -4,8 +4,11 @@
 
 #include <glm/glm.hpp>
 
+
+struct Transform;
 class Texture;
 class Shader;
+
 
 struct Vertex
 {
@@ -30,7 +33,7 @@ public:
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
 	virtual ~Mesh();
 
-	void Draw(Shader& shader);
+	void Draw(Shader& shader, const Transform& transform);
 
 private:
 	void initialization();
