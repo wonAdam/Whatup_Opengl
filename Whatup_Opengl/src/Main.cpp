@@ -9,20 +9,23 @@
 
 #include <stb_image.h>
 #include <glm/glm.hpp>
-#include <assimp/Importer.hpp>
-#include "Shader.h"
-#include "Texture.h"
-#include "Mesh.h"
+#include <glm/gtc/type_ptr.hpp>
+
 #include "GLMacro.h"
+#include "Triangle.h"
 
 bool Initialize_glfw(GLFWwindow*& window);
-void GuiUpdate();
+void GuiUpdate(Triangle& triangle);
 bool Initialization_glew();
 void Initialization_ImGui(GLFWwindow* window);
 
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+
+
+float _lastFrame = 0.0f;
+float _deltaTime = 0.0f;
 
 int main(void)
 {
@@ -31,33 +34,21 @@ int main(void)
     Initialization_glew();
     Initialization_ImGui(window);
 
+    Triangle triangle(glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
-    Shader shader("shaders/VertexShader.vert", "shaders/FragmentShader.frag");
-
-    // set up vertex data (and buffer(s)) and configure vertex attributes
-   // ------------------------------------------------------------------
-    std::vector<Vertex> vertices = {
-        // positions         // normals             // tex coord
-        Vertex( 0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f, 1.0f, 0.0f),  // bottom right
-        Vertex(-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f, 0.0f, 0.0f),  // bottom left
-        Vertex(0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f, 0.5f, 1.0f)   // top 
-    };
-    std::vector<unsigned int> indices = { 0,1,2 };
-    std::vector<Texture> textures = {
-        Texture("img/container2.png", Texture::DIFFUSE),
-        Texture("img/doge.png", Texture::DIFFUSE)
-    };
-
-    Mesh* mesh = new Mesh(vertices, indices, textures);
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
         glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        mesh->Draw(shader);
-        GuiUpdate();
+        float currFrame = glfwGetTime();
+        _deltaTime = currFrame - _lastFrame;
+        _lastFrame = currFrame;
+
+        triangle.Update(_deltaTime);
+        GuiUpdate(triangle);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
@@ -74,7 +65,7 @@ int main(void)
     return 0;
 }
 
-void GuiUpdate()
+void GuiUpdate(Triangle& triangle)
 {
     // Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
@@ -86,6 +77,12 @@ void GuiUpdate()
     ImGui::Button("Button");
     ImGui::SameLine();
     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    ImGui::End();
+
+    ImGui::Begin("Triangle");
+    ImGui::SliderFloat3("Position", glm::value_ptr(triangle._position), -20.0f, 20.0f);
+    ImGui::SliderFloat3("Rotation", glm::value_ptr(triangle._rotation), -180.0f, 180.0f);
+
     ImGui::End();
 
     ImGui::Render();
@@ -122,7 +119,7 @@ bool Initialization_glew()
         return false;
 
     glViewport(0, 0, 800, 600);
-    //glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
 
     return true;
 }
