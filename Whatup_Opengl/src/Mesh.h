@@ -31,9 +31,10 @@ private:
 
 public:
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+	Mesh(std::vector<Vertex> vertices, std::vector<Texture> textures);
 	virtual ~Mesh();
 
-	void Draw(Shader& shader, const Transform& transform);
+	void Draw(const Shader& shader, const Transform& transform) const;
 
 private:
 	void initialization();

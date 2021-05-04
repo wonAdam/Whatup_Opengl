@@ -62,7 +62,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 }
 // activate the shader
 // ------------------------------------------------------------------------
-void Shader::use()
+void Shader::use() const
 {
     glUseProgram(ID);
 }
@@ -92,7 +92,7 @@ void Shader::setVec3(const std::string& name, glm::vec3 value) const
 }
 
 
-void Shader::checkCompileErrors(unsigned int shader, std::string type)
+void Shader::checkCompileErrors(const unsigned int shader, const std::string type) const
 {
     int success;
     char infoLog[1024];

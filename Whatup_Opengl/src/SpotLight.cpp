@@ -15,7 +15,8 @@ void SpotLight::Update(float deltaTime)
 {
 }
 
-void SpotLight::LoadUniformValue(unsigned int index, Shader& shader)
+
+void SpotLight::LoadUniformValue(const unsigned int index, const Shader& shader) const
 {
     shader.setVec3("spotLights[" + std::to_string(index) + "].diffuse", _diffuse);
     shader.setVec3("spotLights[" + std::to_string(index) + "].ambient", _ambient);

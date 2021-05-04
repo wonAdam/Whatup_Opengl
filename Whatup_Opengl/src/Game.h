@@ -40,7 +40,7 @@ public:
 	static void Update(float time);
 	static void End();
 
-	static void LoadLightUniform(Shader& shader);
+	static void LoadLightUniform(const Shader& shader);
 	static void CursorDisable();
 	static void CursorEnable();
 

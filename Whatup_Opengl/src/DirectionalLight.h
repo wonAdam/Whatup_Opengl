@@ -12,6 +12,6 @@ public:
 
 public:
 	virtual void Update(float deltaTime) override;
-	virtual void LoadUniformValue(unsigned int index, Shader& shader) override;
+	virtual void LoadUniformValue(const unsigned int index, const Shader& shader) const override;
 };
 

@@ -20,6 +20,6 @@ protected:
 	virtual ~Light();
 
 public:
-	virtual void LoadUniformValue(unsigned int index, Shader& shader) = 0;
+	virtual void LoadUniformValue(const unsigned int index, const Shader& shader) const = 0;
 };
 

@@ -5,6 +5,7 @@
 
 #include "Camera.h"
 #include "Triangle.h"
+#include "Cube.h"
 #include "Gui.h"
 #include "Light.h"
 #include "DirectionalLight.h"
@@ -67,9 +68,12 @@ void Game::Initialize(float time, GLFWwindow* window)
 	deltaTime = 0.0f;
 
 	// --- Game Initialization --- //
-	Triangle* triangle = new Triangle("Triangle", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
+	/*Triangle* triangle = new Triangle("Triangle", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
 	GameGui->RegisterTransformPanel(triangle);
-	Instance->_gameObjects.push_back(triangle);
+	Instance->_gameObjects.push_back(triangle);*/
+	Cube* cube = new Cube("Cube", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
+	GameGui->RegisterTransformPanel(cube);
+	Instance->_gameObjects.push_back(cube);
 }
 
 void Game::Update(float time)
@@ -96,7 +100,7 @@ void Game::End()
 	delete Instance;
 }
 
-void Game::LoadLightUniform(Shader& shader)
+void Game::LoadLightUniform(const Shader& shader)
 {
 	unsigned int lightCnt[LIGHT_TPYE_COUNT] = { 0,0,0 };
 	for (Light* light : Instance->_lights)

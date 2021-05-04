@@ -27,11 +27,20 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
     initialization();
 }
 
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<Texture> textures)
+    : _vertices(vertices), _textures(textures)
+{
+    for(unsigned int i = 0 ; i < vertices.size(); i++)
+        _indices.push_back(i);
+
+    initialization();
+}
+
 Mesh::~Mesh()
 {
 }
 
-void Mesh::Draw(Shader& shader, const Transform& transform)
+void Mesh::Draw(const Shader& shader, const Transform& transform) const
 {
     unsigned int diffuseNr = 0;
     unsigned int specularNr = 0;
