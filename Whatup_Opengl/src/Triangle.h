@@ -29,9 +29,9 @@ private:
     };
     std::vector<unsigned int> indices = { 0,1,2 };
     std::vector<Texture> textures = {
-        Texture("img/container2.png", Texture::DIFFUSE),
-        Texture("img/doge.png", Texture::DIFFUSE),
-        Texture("img/container2_specular.png", Texture::SPECULAR),
+        Texture("img/container2.png", Texture::Type::DIFFUSE),
+        Texture("img/doge.png", Texture::Type::DIFFUSE),
+        Texture("img/container2_specular.png", Texture::Type::SPECULAR),
     };
 
 

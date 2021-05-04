@@ -15,15 +15,14 @@ public:
 public:
 	virtual void Update(float deltaTime) override;
 
-private:
+protected:
     std::shared_ptr<Mesh> _mesh;
     std::shared_ptr<Shader> _shader;
-    std::vector<Texture> textures = {
-        Texture("img/container2.png", Texture::DIFFUSE),
-        Texture("img/doge.png", Texture::DIFFUSE),
-        Texture("img/container2_specular.png", Texture::SPECULAR),
+    std::vector<Texture> _textures = {
+        Texture("img/default_texture.jpg", Texture::Type::DIFFUSE),
+        Texture("img/default_texture.jpg", Texture::Type::SPECULAR),
     };
-    std::vector<Vertex> vertices = {
+    std::vector<Vertex> _vertices = {
     Vertex(-0.5f, -0.5f, -0.5f, 0.0f,  0.0f, -1.0f, 0.0f, 0.0f),
     Vertex( 0.5f, -0.5f, -0.5f, 0.0f,  0.0f, -1.0f, 1.0f, 0.0f),
     Vertex( 0.5f,  0.5f, -0.5f, 0.0f,  0.0f, -1.0f, 1.0f, 1.0f),

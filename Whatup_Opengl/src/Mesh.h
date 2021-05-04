@@ -26,7 +26,7 @@ public:
 	std::vector<unsigned int> _indices;
 	std::vector<Texture> _textures;
 
-private:
+public:
 	unsigned int _VAO, _VBO, _EBO;
 
 public:

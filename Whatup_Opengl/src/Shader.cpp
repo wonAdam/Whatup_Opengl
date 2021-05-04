@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include <glm/gtc/type_ptr.hpp>
+#include "Texture.h"
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {
@@ -89,6 +90,29 @@ void Shader::setMat4(const std::string& name, glm::mat4 value) const
 void Shader::setVec3(const std::string& name, glm::vec3 value) const
 {
     glUniform3f(glGetUniformLocation(ID, name.c_str()), value.x, value.y, value.z);
+}
+
+void Shader::BindTexture(const std::vector<Texture>& textures) const
+{
+    use();
+
+    unsigned int diffuseNr = 0;
+    unsigned int specularNr = 0;
+    for (unsigned int i = 0; i < textures.size(); i++)
+    {
+        glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
+        // retrieve texture number (the N in diffuse_textureN)
+        std::string number;
+        std::string name = textures[i]._type;
+        if (name == Texture::TypeName[static_cast<unsigned int>(Texture::Type::DIFFUSE)])
+            number = std::to_string(diffuseNr++);
+        else if (name == Texture::TypeName[static_cast<unsigned int>(Texture::Type::SPECULAR)])
+            number = std::to_string(specularNr++);
+
+        setInt(("material." + name + number).c_str(), i);
+        glBindTexture(GL_TEXTURE_2D, textures[i]._id);
+    }
+    setFloat("material.shininess", 32.0f);
 }
 
 

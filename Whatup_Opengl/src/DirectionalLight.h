@@ -2,8 +2,9 @@
 
 #include "Light.h"
 #include "GameObject.h"
+#include "Cube.h"
 
-class DirectionalLight : public Light, public GameObject
+class DirectionalLight : public Light, public Cube
 {
 public:
 	DirectionalLight(std::string name, glm::vec3 rotation, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);

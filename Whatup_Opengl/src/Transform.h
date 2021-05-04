@@ -16,23 +16,28 @@ struct Transform
 	{
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), _scale);
 		glm::mat4 trans = glm::translate(glm::mat4(1.0f), _position);
-		float radX = glm::radians(_rotation.x), radY = glm::radians(_rotation.y), radZ = glm::radians(_rotation.z);
-		glm::mat4 rot = glm::eulerAngleYXZ(radY, radX, radZ);
+		float radX = glm::radians(_rotation.x);
+		float radY = glm::radians(_rotation.y);
+		float radZ = glm::radians(_rotation.z);
+		glm::mat4 rotX = glm::eulerAngleX(radX);
+		glm::mat4 rotY = glm::eulerAngleY(radY);
+		glm::mat4 rotZ = glm::eulerAngleZ(radZ);
+		glm::mat4 rot = rotZ * rotY * rotX;
 		return trans * rot * scale;
 	}
 
 	glm::vec3 GetForward() const
 	{
-		return GetModelMatrix() * glm::vec4(0.0f, 0.0f, -1.0f, 0.0f);
+		return glm::normalize(glm::vec3(-GetModelMatrix()[2]));
 	}
 
 	glm::vec3 GetUp() const
 	{
-		return GetModelMatrix() * glm::vec4(0.0f, 1.0f, 0.0f, 0.0f);
+		return glm::normalize(glm::vec3(GetModelMatrix()[1]));
 	}
 
 	glm::vec3 GetRight() const
 	{
-		return GetModelMatrix() * glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
+		return glm::normalize(glm::vec3(GetModelMatrix()[0]));
 	}
 };

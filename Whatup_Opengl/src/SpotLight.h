@@ -2,8 +2,9 @@
 
 #include "Light.h"
 #include "GameObject.h"
+#include "Cube.h"
 
-class SpotLight : public Light, public GameObject
+class SpotLight : public Light, public Cube
 {
 public:
 	float _cutOff = glm::cos(glm::radians(12.5f));

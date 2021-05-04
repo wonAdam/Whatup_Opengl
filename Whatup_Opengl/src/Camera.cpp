@@ -25,7 +25,11 @@ void Camera::Update(float deltaTime)
 
 glm::mat4 Camera::GetViewMatrix()
 {
+	glm::mat4 i = _transform.GetModelMatrix() * glm::lookAt(_transform._position, _transform._position + _transform.GetForward(), _transform.GetUp());
 	return glm::lookAt(_transform._position, _transform._position + _transform.GetForward(), _transform.GetUp());
+	//glm::mat4 view = glm::inverse(_transform.GetModelMatrix());
+	//glm::mat4 i = view * _transform.GetModelMatrix();
+	//return view;
 }
 
 glm::mat4 Camera::GetProjMatrix()
@@ -38,7 +42,6 @@ void Camera::Rotate(float xoffset, float yoffset)
 	_transform._rotation += glm::vec3(yoffset * sensitiviy, xoffset * sensitiviy, 0.0f);
 
 	_transform._rotation.x = glm::clamp(_transform._rotation.x, -89.0f, 89.0f);
-	_transform._rotation.y = glm::clamp(_transform._rotation.y, -180.0f, 180.0f);
 }
 
 void Camera::Move(float xoffset, float yoffset, float zoffset)

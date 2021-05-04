@@ -1,11 +1,14 @@
 #pragma once
 
 #include <string>
+#include <vector>
+
+class Shader;
 
 class Texture
 {
 public:
-	enum Type { DIFFUSE = 0, SPECULAR = 1 };
+	enum class Type { DIFFUSE = 0, SPECULAR = 1 };
 	static std::string TypeName[2];
 	unsigned int _id;
 	std::string _type;

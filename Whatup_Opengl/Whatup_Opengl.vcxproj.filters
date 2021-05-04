@@ -84,6 +84,9 @@
     <ClCompile Include="src\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\DogeCube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\stb_image\stb_image.h">
@@ -161,10 +164,14 @@
     <ClInclude Include="src\Cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\DogeCube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\VertexShader.vert" />
     <None Include="shaders\FragmentShader.frag" />
+    <None Include="shaders\LightFragment.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\container.jpg">

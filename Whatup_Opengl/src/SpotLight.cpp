@@ -1,10 +1,13 @@
 #include "SpotLight.h"
 
 #include "Shader.h"
+#include "Game.h"
+#include "Camera.h"
 
 SpotLight::SpotLight(std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
-	: GameObject(name, position, rotation, glm::vec3(1.0f)), Light(ambient, diffuse, specular)
+	: Cube(name, position, rotation, glm::vec3(0.2f, 0.2f, 0.8f)), Light(ambient, diffuse, specular, Type::SPOT)
 {
+    _shader = std::shared_ptr<Shader>(new Shader("shaders/VertexShader.vert", "shaders/LightFragment.frag"));
 }
 
 SpotLight::~SpotLight()
@@ -13,6 +16,23 @@ SpotLight::~SpotLight()
 
 void SpotLight::Update(float deltaTime)
 {
+    _shader->use();
+
+    _shader->setVec3("L_direction", _transform.GetForward());
+
+    _shader->BindTexture(_textures);
+
+    _shader->setInt("L_type", static_cast<int>(_type));
+
+    // Set MVP
+    _shader->setMat4("model", _transform.GetModelMatrix());
+    _shader->setMat4("view", Game::GameCamera->GetViewMatrix());
+    _shader->setMat4("proj", Game::GameCamera->GetProjMatrix());
+
+    // draw mesh
+    glBindVertexArray(_mesh->_VAO);
+    glDrawElements(GL_TRIANGLES, _mesh->_indices.size(), GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
 }
 
 

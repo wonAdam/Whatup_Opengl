@@ -42,26 +42,9 @@ Mesh::~Mesh()
 
 void Mesh::Draw(const Shader& shader, const Transform& transform) const
 {
-    unsigned int diffuseNr = 0;
-    unsigned int specularNr = 0;
-    for (unsigned int i = 0; i < _textures.size(); i++)
-    {
-        glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
-        // retrieve texture number (the N in diffuse_textureN)
-        std::string number;
-        std::string name = _textures[i]._type;
-        if (name == Texture::TypeName[Texture::DIFFUSE])
-            number = std::to_string(diffuseNr++);
-        else if (name == Texture::TypeName[Texture::SPECULAR])
-            number = std::to_string(specularNr++);
-
-        shader.setInt(("material." + name + number).c_str(), i);
-        glBindTexture(GL_TEXTURE_2D, _textures[i]._id);
-    }
-    glActiveTexture(GL_TEXTURE0);
+    shader.BindTexture(_textures);
 
     // Set MVP
-    shader.use();
     shader.setMat4("model", transform.GetModelMatrix());
     shader.setMat4("view", Game::GameCamera->GetViewMatrix());
     shader.setMat4("proj", Game::GameCamera->GetProjMatrix());

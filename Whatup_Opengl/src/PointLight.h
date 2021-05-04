@@ -2,8 +2,9 @@
 
 #include "Light.h"
 #include "GameObject.h"
+#include "Cube.h"
 
-class PointLight : public Light, public GameObject
+class PointLight : public Light, public Cube
 {
 public:
 	float _constant = 1.0f;

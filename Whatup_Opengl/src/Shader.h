@@ -1,10 +1,12 @@
 #pragma once
 
 #include <GL/glew.h>
-
+#include <vector>
 #include <string>
 
 #include <glm/glm.hpp>
+
+class Texture;
 
 class Shader
 {
@@ -17,6 +19,8 @@ public:
     void setFloat(const std::string& name, float value) const;
     void setMat4(const std::string& name, glm::mat4 value) const;
     void setVec3(const std::string& name, glm::vec3 value) const;
+
+    void BindTexture(const std::vector<Texture>& textures) const;
 
 private:
     void checkCompileErrors(const unsigned int shader, const std::string type) const;

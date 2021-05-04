@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\DogeCube.cpp" />
     <ClCompile Include="src\Cube.cpp" />
     <ClCompile Include="src\DirectionalLight.cpp" />
     <ClCompile Include="src\PointLight.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="src\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\DogeCube.h" />
     <ClInclude Include="src\Cube.h" />
     <ClInclude Include="src\DirectionalLight.h" />
     <ClInclude Include="src\PointLight.h" />
@@ -204,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\FragmentShader.frag" />
+    <None Include="shaders\LightFragment.frag" />
     <None Include="shaders\VertexShader.vert" />
   </ItemGroup>
   <ItemGroup>
