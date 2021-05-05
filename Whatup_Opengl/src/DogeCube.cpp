@@ -7,6 +7,13 @@ DogeCube::DogeCube(std::string name, glm::vec3 position, glm::vec3 rotation, glm
 	_mesh = std::shared_ptr<Mesh>(new Mesh(_vertices, _textures));
 }
 
+DogeCube::DogeCube(std::shared_ptr<Shader> shader, std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
+	: Cube(name, position, rotation, scale)
+{
+	_shader = shader;
+	_mesh = std::shared_ptr<Mesh>(new Mesh(_vertices, _textures));
+}
+
 DogeCube::~DogeCube()
 {
 }

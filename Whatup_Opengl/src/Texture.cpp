@@ -1,4 +1,6 @@
 #include "Texture.h"
+#define TEXTURE_CPP
+
 #include <iostream>
 
 #include <GL/glew.h>
@@ -7,16 +9,60 @@
 #include "GLMacro.h"
 #include "Shader.h"
 
-std::string Texture::TypeName[2] = { "diffuse", "specular" };
+std::string Texture::TypeName[2] = { SHADER_VARIABLE_TEXTURE_DIFFUSE, SHADER_VARIABLE_TEXTURE_SPECULAR };
 
 Texture::Texture(const char* path, Texture::Type type)
+    : _path(path), _id(generate_Texture(path)), _type(TypeName[static_cast<unsigned int>(type)])
 {
-    _id = generate_Texture(path);
-    _type = TypeName[static_cast<unsigned int>(type)];
+}
+
+Texture::Texture(unsigned int id, const char* path, Texture::Type type)
+    : _id(id), _path(path), _type(TypeName[static_cast<unsigned int>(type)])
+{
 }
 
 Texture::~Texture()
 {
+}
+
+unsigned int Texture::LoadTextureFromFile(const char* path, std::string& directory, bool gamma)
+{
+    std::string filename = std::string(path);
+    filename = directory + '/' + filename;
+
+    unsigned int textureID;
+    glGenTextures(1, &textureID);
+
+    int width, height, nrComponents;
+    unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+    if (data)
+    {
+        GLenum format;
+        if (nrComponents == 1)
+            format = GL_RED;
+        else if (nrComponents == 3)
+            format = GL_RGB;
+        else if (nrComponents == 4)
+            format = GL_RGBA;
+
+        GLCall(glBindTexture(GL_TEXTURE_2D, textureID));
+        GLCall(glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data));
+        GLCall(glGenerateMipmap(GL_TEXTURE_2D));
+
+        GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
+        GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
+        GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
+        GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+
+        stbi_image_free(data);
+    }
+    else
+    {
+        std::cout << "Texture failed to load at path: " << path << std::endl;
+        stbi_image_free(data);
+    }
+
+    return textureID;
 }
 
 unsigned int Texture::generate_Texture(const char* path)
@@ -33,12 +79,18 @@ unsigned int Texture::generate_Texture(const char* path)
 
     // load and generate the texture
     stbi_set_flip_vertically_on_load(true);
-    int width, height, nrChannels;
-    unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
+    int width, height, nrComponents;
+    unsigned char* data = stbi_load(path, &width, &height, &nrComponents, 0);
     if (data)
     {
-        GLint internalFormat = nrChannels == 3 ? GL_RGB : GL_RGBA;
-        GLCall(glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, internalFormat, GL_UNSIGNED_BYTE, data));
+        GLenum format;
+        if (nrComponents == 1)
+            format = GL_RED;
+        else if (nrComponents == 3)
+            format = GL_RGB;
+        else if (nrComponents == 4)
+            format = GL_RGBA;
+        GLCall(glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data));
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     else

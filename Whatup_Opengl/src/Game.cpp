@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Triangle.h"
 #include "DogeCube.h"
+#include "SurvivorBackpack.h"
 #include "Gui.h"
 #include "Light.h"
 #include "DirectionalLight.h"
@@ -54,6 +55,11 @@ void Game::Initialize(float time, GLFWwindow* window)
 	glfwSetKeyCallback(window, Game::key_callback);
 	glfwSetCursorPosCallback(window, Game::cursor_position_callback);
 
+	lastFrame = time;
+	deltaTime = 0.0f;
+
+	// --- Game Initialization --- //
+	// Lights
 	DirectionalLight* dirLight = new DirectionalLight("Directional Light", glm::vec3(-30.0f, 120.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.9f, 0.9f, 0.9f), glm::vec3(0.8f, 0.8f, 0.8f));
 	Instance->_lights.push_back(dirLight);
 	GameGui->RegisterTransformPanel(dirLight);
@@ -64,16 +70,21 @@ void Game::Initialize(float time, GLFWwindow* window)
 	Instance->_lights.push_back(sLight);
 	GameGui->RegisterTransformPanel(sLight);
 
-	lastFrame = time;
-	deltaTime = 0.0f;
+	// GameObjects
+	std::shared_ptr<Shader> shader(new Shader("shaders/VertexShader.vert", "shaders/FragmentShader.frag"));
 
-	// --- Game Initialization --- //
-	/*Triangle* triangle = new Triangle("Triangle", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
+	Triangle* triangle = new Triangle(shader, "Triangle", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
 	GameGui->RegisterTransformPanel(triangle);
-	Instance->_gameObjects.push_back(triangle);*/
-	DogeCube* cube = new DogeCube("DogeCube", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
+	Instance->_gameObjects.push_back(triangle);
+
+	DogeCube* cube = new DogeCube(shader, "DogeCube", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
 	GameGui->RegisterTransformPanel(cube);
 	Instance->_gameObjects.push_back(cube);
+
+	std::shared_ptr<Model> backpack(new Model("models/backpack/backpack.obj"));
+	SurvivorBackpack* sb = new SurvivorBackpack(backpack, shader, "Backpack", glm::vec3(1.0f, 2.0f, 3.0f), glm::vec3(0.0f), glm::vec3(1.0f));
+	GameGui->RegisterTransformPanel(sb);
+	Instance->_gameObjects.push_back(sb);
 }
 
 void Game::Update(float time)

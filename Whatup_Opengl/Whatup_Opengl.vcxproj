@@ -175,6 +175,7 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\Triangle.cpp" />
+    <ClCompile Include="src\SurvivorBackpack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\DogeCube.h" />
@@ -203,6 +204,7 @@
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Triangle.h" />
+    <ClInclude Include="src\SurvivorBackpack.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\FragmentShader.frag" />

@@ -12,6 +12,7 @@ class Triangle : public GameObject
 {
 public:
     Triangle(std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
+    Triangle(std::shared_ptr<Shader> shader, std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
     Triangle(const Triangle& rhs) = delete;
     virtual ~Triangle();
 

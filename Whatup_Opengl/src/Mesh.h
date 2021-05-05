@@ -16,7 +16,7 @@ struct Vertex
 	glm::vec3 _normal;
 	glm::vec2 _textureCoord;
 	Vertex(glm::vec3 position, glm::vec3 normal, glm::vec2 textureCoord);
-	Vertex(float px, float py, float pz, float nx, float ny, float nz, float s, float t);
+	Vertex(float px, float py, float pz, float nx, float ny, float nz, float u, float v);
 };
 
 class Mesh

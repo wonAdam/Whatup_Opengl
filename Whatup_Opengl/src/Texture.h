@@ -12,10 +12,14 @@ public:
 	static std::string TypeName[2];
 	unsigned int _id;
 	std::string _type;
+	std::string _path;
 
 public:
 	Texture(const char* path, Texture::Type type);
+	Texture(unsigned int id, const char* path, Texture::Type type);
 	virtual ~Texture();
+
+	static unsigned int LoadTextureFromFile(const char* path, std::string& directory, bool gamma = false);
 
 private:
 	unsigned int generate_Texture(const char* path);

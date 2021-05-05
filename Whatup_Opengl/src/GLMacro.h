@@ -3,6 +3,11 @@
 #include <iostream>
 #include <GL/glew.h>
 
+#ifdef TEXTURE_CPP
+#define SHADER_VARIABLE_TEXTURE_DIFFUSE "diffuse"
+#define SHADER_VARIABLE_TEXTURE_SPECULAR "specular"
+#endif //  TEXTURE_CPP
+
 inline static void GLClearError() { while (glGetError() != GL_NO_ERROR); }
 
 static bool GLLogCall(const char* function, const char* file, const int line)
