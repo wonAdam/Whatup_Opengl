@@ -207,6 +207,7 @@
     <ClInclude Include="src\SurvivorBackpack.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\DepthTesting.frag" />
     <None Include="shaders\FragmentShader.frag" />
     <None Include="shaders\LightFragment.frag" />
     <None Include="shaders\VertexShader.vert" />

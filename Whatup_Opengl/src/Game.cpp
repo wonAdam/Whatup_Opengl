@@ -12,6 +12,7 @@
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "SpotLight.h"
+#include "GLMacro.h"
 
 Game* Game::Instance;
 Camera* Game::GameCamera;
@@ -71,7 +72,7 @@ void Game::Initialize(float time, GLFWwindow* window)
 	GameGui->RegisterTransformPanel(sLight);
 
 	// GameObjects
-	std::shared_ptr<Shader> shader(new Shader("shaders/VertexShader.vert", "shaders/FragmentShader.frag"));
+	std::shared_ptr<Shader> shader(new Shader(WO_DEFAULT_VERTEX_SHADER, WO_DEFAULT_FRAGMENT_SHADER));
 
 	Triangle* triangle = new Triangle(shader, "Triangle", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
 	GameGui->RegisterTransformPanel(triangle);

@@ -178,6 +178,7 @@
     <None Include="shaders\VertexShader.vert" />
     <None Include="shaders\FragmentShader.frag" />
     <None Include="shaders\LightFragment.frag" />
+    <None Include="shaders\DepthTesting.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\container.jpg">
