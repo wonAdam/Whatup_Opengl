@@ -3,15 +3,13 @@
 DogeCube::DogeCube(std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
 	: Cube(name, position, rotation, scale)
 {
-	_shader = std::shared_ptr<Shader>(new Shader("shaders/VertexShader.vert", "shaders/FragmentShader.frag"));
-	_mesh = std::shared_ptr<Mesh>(new Mesh(_vertices, _textures));
-}
-
-DogeCube::DogeCube(std::shared_ptr<Shader> shader, std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
-	: Cube(name, position, rotation, scale)
-{
-	_shader = shader;
-	_mesh = std::shared_ptr<Mesh>(new Mesh(_vertices, _textures));
+    // overriding
+    _textures = {
+        Texture("img/doge.png", Texture::Type::DIFFUSE),
+        Texture("img/container2.png", Texture::Type::DIFFUSE),
+        Texture("img/container2_specular.png", Texture::Type::SPECULAR),
+    };
+    _mesh = std::unique_ptr<Mesh>(new Mesh(_vertices, _textures));
 }
 
 DogeCube::~DogeCube()

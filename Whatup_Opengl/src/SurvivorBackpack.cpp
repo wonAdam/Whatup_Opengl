@@ -1,9 +1,13 @@
 #include "SurvivorBackpack.h"
 
 #include "Model.h"
+#include "shaders/DefaultShader.h"
+#include "GLMacro.h"
 
-SurvivorBackpack::SurvivorBackpack(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
-	: _model(model), _shader(shader), GameObject(name, position, rotation, scale)
+SurvivorBackpack::SurvivorBackpack(std::shared_ptr<Model> model, std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
+	: _model(model), 
+	_shader(new DefaultShader(_transform)), 
+	GameObject(name, position, rotation, scale)
 {
 }
 

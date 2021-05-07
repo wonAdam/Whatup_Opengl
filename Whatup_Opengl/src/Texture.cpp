@@ -7,7 +7,6 @@
 #include <stb_image.h>
 
 #include "GLMacro.h"
-#include "Shader.h"
 
 std::string Texture::TypeName[2] = { SHADER_VARIABLE_TEXTURE_DIFFUSE, SHADER_VARIABLE_TEXTURE_SPECULAR };
 

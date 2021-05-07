@@ -8,10 +8,12 @@
 #include "DogeCube.h"
 #include "SurvivorBackpack.h"
 #include "Gui.h"
-#include "Light.h"
-#include "DirectionalLight.h"
-#include "PointLight.h"
-#include "SpotLight.h"
+#include "lights/Light.h"
+#include "lights/DirectionalLight.h"
+#include "lights/PointLight.h"
+#include "lights/SpotLight.h"
+#include "shaders/DefaultShader.h"
+#include "shaders/LightShader.h"
 #include "GLMacro.h"
 
 Game* Game::Instance;
@@ -72,18 +74,16 @@ void Game::Initialize(float time, GLFWwindow* window)
 	GameGui->RegisterTransformPanel(sLight);
 
 	// GameObjects
-	std::shared_ptr<Shader> shader(new Shader(WO_DEFAULT_VERTEX_SHADER, WO_DEFAULT_FRAGMENT_SHADER));
-
-	Triangle* triangle = new Triangle(shader, "Triangle", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
+	Triangle* triangle = new Triangle("Triangle", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
 	GameGui->RegisterTransformPanel(triangle);
 	Instance->_gameObjects.push_back(triangle);
 
-	DogeCube* cube = new DogeCube(shader, "DogeCube", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
+	DogeCube* cube = new DogeCube("DogeCube", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
 	GameGui->RegisterTransformPanel(cube);
 	Instance->_gameObjects.push_back(cube);
 
 	std::shared_ptr<Model> backpack(new Model("models/backpack/backpack.obj"));
-	SurvivorBackpack* sb = new SurvivorBackpack(backpack, shader, "Backpack", glm::vec3(1.0f, 2.0f, 3.0f), glm::vec3(0.0f), glm::vec3(1.0f));
+	SurvivorBackpack* sb = new SurvivorBackpack(backpack, "Backpack", glm::vec3(1.0f, 2.0f, 3.0f), glm::vec3(0.0f), glm::vec3(1.0f));
 	GameGui->RegisterTransformPanel(sb);
 	Instance->_gameObjects.push_back(sb);
 }

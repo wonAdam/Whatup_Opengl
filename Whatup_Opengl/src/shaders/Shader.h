@@ -7,11 +7,23 @@
 #include <glm/glm.hpp>
 
 class Texture;
+class DirectionalLight;
+class Light;
+class SpotLight;
+class PointLight;
+class Game;
+
 
 class Shader
 {
-public:
+protected:
     unsigned int ID;
+
+public:
+    virtual void Use(const std::vector<Texture>& textures) const = 0;
+    virtual ~Shader();
+
+protected:
     Shader(const char* vertexPath, const char* fragmentPath);
     void use() const;
     void setBool(const std::string& name, bool value) const;
@@ -19,8 +31,13 @@ public:
     void setFloat(const std::string& name, float value) const;
     void setMat4(const std::string& name, glm::mat4 value) const;
     void setVec3(const std::string& name, glm::vec3 value) const;
-
     void BindTexture(const std::vector<Texture>& textures) const;
+
+    friend class DirectionalLight;
+    friend class Light;
+    friend class SpotLight;
+    friend class PointLight;
+    friend class Game;
 
 private:
     void checkCompileErrors(const unsigned int shader, const std::string type) const;

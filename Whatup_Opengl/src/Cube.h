@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "Mesh.h"
 #include "Texture.h"
-#include "Shader.h"
+#include "shaders/Shader.h"
 
 class Cube : public GameObject
 {
@@ -16,8 +16,8 @@ public:
 	virtual void Update(float deltaTime) override;
 
 protected:
-    std::shared_ptr<Mesh> _mesh;
-    std::shared_ptr<Shader> _shader;
+    std::unique_ptr<Mesh> _mesh;
+    std::unique_ptr<Shader> _shader;
     std::vector<Texture> _textures = {
         Texture("img/default_texture.jpg", Texture::Type::DIFFUSE),
         Texture("img/default_texture.jpg", Texture::Type::SPECULAR),

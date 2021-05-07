@@ -3,19 +3,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "GLMacro.h"
+#include "shaders/DefaultShader.h"
 
 Triangle::Triangle(std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
 	: GameObject(name, position, rotation, scale)
 {
-	_shader = std::shared_ptr<Shader>(new Shader(WO_DEFAULT_VERTEX_SHADER, WO_DEFAULT_FRAGMENT_SHADER));
-	_mesh = std::shared_ptr<Mesh>(new Mesh(vertices, indices, textures));
-}
-
-Triangle::Triangle(std::shared_ptr<Shader> shader, std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
-	: GameObject(name, position, rotation, scale)
-{
-	_shader = shader;
-	_mesh = std::shared_ptr<Mesh>(new Mesh(vertices, indices, textures));
+	_shader = std::unique_ptr<DefaultShader>(new DefaultShader(_transform));
+	_mesh = std::unique_ptr<Mesh>(new Mesh(_vertices, _indices, _textures));
 }
 
 Triangle::~Triangle()

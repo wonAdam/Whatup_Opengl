@@ -9,7 +9,7 @@
 
 #include "Mesh.h"
 #include "Texture.h"
-#include "Shader.h"
+#include "shaders/Shader.h"
 #include "Transform.h"
 #include "GLMacro.h"
 

@@ -4,7 +4,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "GLMacro.h"
-#include "Shader.h"
+#include "shaders/Shader.h"
+#include "shaders/DefaultShader.h"
 #include "Texture.h"
 #include "GameObject.h"
 #include "Transform.h"
@@ -42,16 +43,8 @@ Mesh::~Mesh()
 
 void Mesh::Draw(const Shader& shader, const Transform& transform) const
 {
-    shader.BindTexture(_textures);
-
-    // Set MVP
-    shader.setMat4("model", transform.GetModelMatrix());
-    shader.setMat4("view", Game::GameCamera->GetViewMatrix());
-    shader.setMat4("proj", Game::GameCamera->GetProjMatrix());
-
-    // Set Light
-    Game::LoadLightUniform(shader);
-
+    shader.Use(_textures);
+    
     // draw mesh
     glBindVertexArray(_VAO);
     glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
