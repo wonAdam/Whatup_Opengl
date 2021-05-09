@@ -7,7 +7,7 @@
 DirectionalLight::DirectionalLight(std::string name, glm::vec3 rotation, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
 	: Cube(name, glm::vec3(0.0f), rotation, glm::vec3(1.0f, 1.0f, 0.2f)), Light(ambient, diffuse, specular, Type::DIRECTIONAL)
 {
-    _shader = std::unique_ptr<LightShader>(new LightShader(_transform, _type));
+    _shader = std::unique_ptr<LightShader>(new LightShader(&_transform, _type));
 }
 
 DirectionalLight::~DirectionalLight()
@@ -16,12 +16,7 @@ DirectionalLight::~DirectionalLight()
 
 void DirectionalLight::Update(float deltaTime)
 {
-    _shader->Use(_textures);
-
-    // draw mesh
-    glBindVertexArray(_mesh->_VAO);
-    glDrawElements(GL_TRIANGLES, _mesh->_indices.size(), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+    _mesh->Draw(*_shader, _transform);
 }
 
 void DirectionalLight::LoadUniformValue(const unsigned int index, const Shader& shader) const

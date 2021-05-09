@@ -6,17 +6,18 @@
 class OutlineShader : public Shader
 {
 public:
-	Transform& _transform;
+	const Transform* _transform;
 	float _scale;
 	glm::vec3 _color;
 
 public:
-	OutlineShader(Transform& transform, float scale, glm::vec3 color);
-	OutlineShader(const OutlineShader& rhs) = delete;
+	OutlineShader();
+	OutlineShader(const Transform* transform, float scale, glm::vec3 color);
 	OutlineShader& operator=(const OutlineShader& rhs) = delete;
 	virtual ~OutlineShader();
 
 public:
+	void Set(const Transform* transform, float scale, glm::vec3 color);
 	virtual void Use(const std::vector<Texture>& textures) const override;
 
 };

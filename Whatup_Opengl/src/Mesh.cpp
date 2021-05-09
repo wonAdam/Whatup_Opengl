@@ -1,11 +1,13 @@
 #include "Mesh.h"
 
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "GLMacro.h"
 #include "shaders/Shader.h"
 #include "shaders/DefaultShader.h"
+#include "shaders/OutlineShader.h"
 #include "Texture.h"
 #include "GameObject.h"
 #include "Transform.h"
@@ -21,6 +23,7 @@ Vertex::Vertex(float px, float py, float pz, float nx, float ny, float nz, float
     : _position(glm::vec3(px, py, pz)), _normal(glm::vec3(nx, ny, nz)), _textureCoord(glm::vec2(s, t))
 {
 }
+
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
     : _vertices(vertices), _indices(indices), _textures(textures)
@@ -41,14 +44,40 @@ Mesh::~Mesh()
 {
 }
 
-void Mesh::Draw(const Shader& shader, const Transform& transform) const
+void Mesh::Draw(const Shader& shader, const Transform& transform, bool outline)
 {
+    // Original Mesh부분은 Stencil Buffer에 1로 write합니다.
+    if (outline == true)
+    {
+        GLCall(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
+        GLCall(glStencilFunc(GL_ALWAYS, 1, 0xff));
+        GLCall(glStencilMask(0xff));
+    }
+
     shader.Use(_textures);
-    
+
     // draw mesh
     glBindVertexArray(_VAO);
     glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+
+    // 그러고 Stencil Buffer가 1이 아닌 부분을 
+    // OutlineShader로 그립니다.
+    if (outline == true)
+    {
+        GLCall(glStencilFunc(GL_NOTEQUAL, 1, 0xff));
+        GLCall(glStencilMask(0x00));
+
+        _olShader.Set(&transform, 1.05f, glm::vec3(1.0f, 1.0f, 0.0f));
+        _olShader.Use(_textures);
+
+        glBindVertexArray(_VAO);
+        glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+
+        GLCall(glStencilMask(0xff));
+        GLCall(glStencilFunc(GL_ALWAYS, 1, 0xff));
+    }
 
 }
 

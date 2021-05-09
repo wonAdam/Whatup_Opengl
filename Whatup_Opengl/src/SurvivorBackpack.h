@@ -4,10 +4,11 @@
 
 #include "GameObject.h"
 #include "Model.h"
+#include "IOutlineable.h"
 
 class Shader;
 
-class SurvivorBackpack : public GameObject
+class SurvivorBackpack : public GameObject, public IOutlineable
 {
 public:
 	std::shared_ptr<Model> _model;

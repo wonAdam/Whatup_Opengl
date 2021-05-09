@@ -9,7 +9,7 @@ SpotLight::SpotLight(std::string name, glm::vec3 position, glm::vec3 rotation, g
 	: Cube(name, position, rotation, glm::vec3(0.2f, 0.2f, 0.8f)), Light(ambient, diffuse, specular, Type::SPOT)
 {
     // override
-    _shader = std::unique_ptr<LightShader>(new LightShader(_transform, _type));
+    _shader = std::unique_ptr<LightShader>(new LightShader(&_transform, _type));
 }
 
 SpotLight::~SpotLight()
@@ -18,12 +18,7 @@ SpotLight::~SpotLight()
 
 void SpotLight::Update(float deltaTime)
 {
-    _shader->Use(_textures);
-    
-    // draw mesh
-    glBindVertexArray(_mesh->_VAO);
-    glDrawElements(GL_TRIANGLES, _mesh->_indices.size(), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+    _mesh->Draw(*_shader, _transform);
 }
 
 

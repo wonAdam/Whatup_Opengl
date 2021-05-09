@@ -12,6 +12,8 @@
 #define WO_DEFAULT_FRAGMENT_SHADER "shaders/FragmentShader.frag"
 #define WO_LIGHT_FRAGMENT_SHADER "shaders/LightFragment.frag"
 #define WO_DEPTH_TESTING_SHADER "shaders/DepthTesting.frag"
+#define WO_OUTLINE_VERTEX_SHADER "shaders/OutlineVertShader.vert"
+#define WO_OUTLINE_FRAGMENT_SHADER "shaders/OutlineFragShader.frag"
 
 #define WO_UNIFORM_MODEL "model"
 #define WO_UNIFORM_VIEW "view"

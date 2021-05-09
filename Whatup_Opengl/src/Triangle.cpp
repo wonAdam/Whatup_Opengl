@@ -8,7 +8,7 @@
 Triangle::Triangle(std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
 	: GameObject(name, position, rotation, scale)
 {
-	_shader = std::unique_ptr<DefaultShader>(new DefaultShader(_transform));
+	_shader = std::unique_ptr<DefaultShader>(new DefaultShader(&_transform));
 	_mesh = std::unique_ptr<Mesh>(new Mesh(_vertices, _indices, _textures));
 }
 

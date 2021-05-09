@@ -9,6 +9,7 @@
 #include "SpotLight.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
+#include "DogeCube.h"
 
 Gui::Gui(GLFWwindow* window)
 {
@@ -80,6 +81,12 @@ void Gui::showTransformPanel(GameObject* registerer)
     ImGui::Text("Up\t\t\t(%.3f, %.3f, %.3f)", up.x, up.y, up.z);
     ImGui::Text("Right\t\t(%.3f, %.3f, %.3f)", right.x, right.y, right.z);
     
+    IOutlineable* outlineable = dynamic_cast<IOutlineable*>(registerer);
+    if (outlineable != nullptr)
+    {
+        ImGui::Checkbox("Outline", &outlineable->_outline);
+    }
+
     Light* li = dynamic_cast<Light*>(registerer);
     if (li != nullptr)
     {

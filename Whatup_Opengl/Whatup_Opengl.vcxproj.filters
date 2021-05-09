@@ -206,12 +206,17 @@
     <ClInclude Include="src\shaders\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\IOutlineable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\VertexShader.vert" />
     <None Include="shaders\FragmentShader.frag" />
     <None Include="shaders\LightFragment.frag" />
     <None Include="shaders\DepthTesting.frag" />
+    <None Include="shaders\OutlineFragShader.frag" />
+    <None Include="shaders\OutlineVertShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\container.jpg">

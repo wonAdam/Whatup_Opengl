@@ -3,12 +3,11 @@
 #include <vector>
 
 #include <glm/glm.hpp>
-
+#include "shaders/OutlineShader.h"
 
 struct Transform;
 class Texture;
 class Shader;
-
 
 struct Vertex
 {
@@ -25,6 +24,7 @@ public:
 	std::vector<Vertex> _vertices;
 	std::vector<unsigned int> _indices;
 	std::vector<Texture> _textures;
+	OutlineShader _olShader;
 
 public:
 	unsigned int _VAO, _VBO, _EBO;
@@ -34,7 +34,7 @@ public:
 	Mesh(std::vector<Vertex> vertices, std::vector<Texture> textures);
 	virtual ~Mesh();
 
-	void Draw(const Shader& shader, const Transform& transform) const;
+	void Draw(const Shader& shader, const Transform& transform, bool outline = false);
 
 private:
 	void initialization();

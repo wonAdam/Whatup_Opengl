@@ -184,6 +184,7 @@
     <ClInclude Include="src\DogeCube.h" />
     <ClInclude Include="src\Cube.h" />
     <ClInclude Include="src\DirectionalLight.h" />
+    <ClInclude Include="src\IOutlineable.h" />
     <ClInclude Include="src\lights\DirectionalLight.h" />
     <ClInclude Include="src\lights\Light.h" />
     <ClInclude Include="src\lights\PointLight.h" />
@@ -221,6 +222,8 @@
     <None Include="shaders\DepthTesting.frag" />
     <None Include="shaders\FragmentShader.frag" />
     <None Include="shaders\LightFragment.frag" />
+    <None Include="shaders\OutlineVertShader.vert" />
+    <None Include="shaders\OutlineFragShader.frag" />
     <None Include="shaders\VertexShader.vert" />
   </ItemGroup>
   <ItemGroup>

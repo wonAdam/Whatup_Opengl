@@ -8,7 +8,7 @@ PointLight::PointLight(std::string name, glm::vec3 position, glm::vec3 ambient, 
 	: Cube(name, position, glm::vec3(0.0f), glm::vec3(0.3f)), Light(ambient, diffuse, specular, Type::POINT)
 {
     // override
-    _shader = std::unique_ptr<LightShader>(new LightShader(_transform, _type));
+    _shader = std::unique_ptr<LightShader>(new LightShader(&_transform, _type));
 }
 
 PointLight::~PointLight()
@@ -17,12 +17,7 @@ PointLight::~PointLight()
 
 void PointLight::Update(float deltaTime)
 {
-    _shader->Use(_textures);
-
-    // draw mesh
-    glBindVertexArray(_mesh->_VAO);
-    glDrawElements(GL_TRIANGLES, _mesh->_indices.size(), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+    _mesh->Draw(*_shader, _transform);
 }
 
 

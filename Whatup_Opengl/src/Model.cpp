@@ -22,10 +22,10 @@ Model::~Model()
 {
 }
 
-void Model::Draw(Shader& shader, const Transform& transform)
+void Model::Draw(Shader& shader, const Transform& transform, bool outline)
 {
 	for (Mesh& mesh : _meshes)
-		mesh.Draw(shader, transform);
+		mesh.Draw(shader, transform, outline);
 }
 
 void Model::loadModel(std::string path)

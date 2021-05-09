@@ -26,7 +26,7 @@ public:
 	virtual ~Model();
 
 public:
-	void Draw(Shader& shader, const Transform& transform);
+	void Draw(Shader& shader, const Transform& transform, bool outline = false);
 
 private:
 	void loadModel(std::string path);

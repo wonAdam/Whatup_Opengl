@@ -1,6 +1,8 @@
 #pragma once
 #include "Cube.h"
-class DogeCube : public Cube
+#include "IOutlineable.h"
+
+class DogeCube : public Cube, public IOutlineable
 {
 public:
     DogeCube(std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);

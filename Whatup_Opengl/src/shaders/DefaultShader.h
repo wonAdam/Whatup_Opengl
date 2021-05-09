@@ -6,10 +6,10 @@
 class DefaultShader : public Shader
 {
 public:
-	Transform& _transform;
+	const Transform* _transform;
 
 public:
-	DefaultShader(Transform& transform);
+	DefaultShader(const Transform* transform);
 	DefaultShader(const DefaultShader& rhs) = delete;
 	DefaultShader& operator=(const DefaultShader& rhs) = delete;
 	virtual ~DefaultShader();
