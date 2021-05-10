@@ -11,9 +11,11 @@ Quad::Quad(std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 s
 }
 
 Quad::Quad(std::vector<Texture> textures, std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
-	: Quad(name, position, rotation, scale)
+	: GameObject(name, position, rotation, scale)
 {
 	_textures = textures;
+	_shader = std::unique_ptr<DefaultShader>(new DefaultShader(&_transform));
+	_mesh = std::unique_ptr<Mesh>(new Mesh(_vertices, _indices, _textures));
 }
 
 Quad::~Quad()

@@ -68,9 +68,12 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, vec
 
 void main()
 {
-    vec3 mix_diffuse = vec3(texture(material.diffuse0, TexCoord) + 
+    vec4 mix_diffuse = vec4(texture(material.diffuse0, TexCoord) + 
                             texture(material.diffuse1, TexCoord) + 
                             texture(material.diffuse2, TexCoord)) / 3; 
+
+    if(mix_diffuse.a == 0.0) 
+        discard;
 
     vec3 mix_specular = vec3(texture(material.specular0, TexCoord) + 
                             texture(material.specular1, TexCoord)) / 2; 
@@ -82,15 +85,15 @@ void main()
 
       // add the directional light's contribution to the output
       for(int i = 0; i < n_of_dir_lights; i++)
-          result += CalcDirLight(dirLight[i], Normal, viewDir, mix_diffuse, mix_specular);
+          result += CalcDirLight(dirLight[i], Normal, viewDir, vec3(mix_diffuse), mix_specular);
 
       // do the same for all point lights
       for(int i = 0; i < n_of_point_lights; i++)
-  	    result += CalcPointLight(pointLights[i], Normal, FragPos, viewDir, mix_diffuse, mix_specular);
+  	    result += CalcPointLight(pointLights[i], Normal, FragPos, viewDir, vec3(mix_diffuse), mix_specular);
 
       // and add others lights as well (like spotlights)
       for(int i = 0; i < n_of_spot_lights; i++)
-          result += CalcSpotLight(spotLights[i], Normal, FragPos, viewDir, mix_diffuse, mix_specular);
+          result += CalcSpotLight(spotLights[i], Normal, FragPos, viewDir, vec3(mix_diffuse), mix_specular);
 
     FragColor = vec4(result, 1.0);
 } 

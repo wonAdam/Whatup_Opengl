@@ -99,10 +99,10 @@
     <ClCompile Include="src\shaders\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Grass.cpp">
+    <ClCompile Include="src\Quad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Quad.cpp">
+    <ClCompile Include="src\Grass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -215,10 +215,10 @@
     <ClInclude Include="src\IOutlineable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grass.h">
+    <ClInclude Include="src\Quad.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Quad.h">
+    <ClInclude Include="src\Grass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

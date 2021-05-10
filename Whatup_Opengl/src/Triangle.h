@@ -19,7 +19,7 @@ public:
 public:
     virtual void Update(float deltaTime) override;
 
-private:
+protected:
     std::unique_ptr<Mesh> _mesh;
     std::unique_ptr<Shader> _shader;
     std::vector<Vertex> _vertices = {

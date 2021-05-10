@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Triangle.h"
 #include "Quad.h"
+#include "Grass.h"
 #include "DogeCube.h"
 #include "SurvivorBackpack.h"
 #include "Gui.h"
@@ -79,9 +80,9 @@ void Game::Initialize(float time, GLFWwindow* window)
 	GameGui->RegisterTransformPanel(triangle);
 	Instance->_gameObjects.push_back(triangle);
 
-	Quad* quad = new Quad("Quad", glm::vec3(0.0f, 2.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
-	GameGui->RegisterTransformPanel(quad);
-	Instance->_gameObjects.push_back(quad);
+	Grass* grass = new Grass("Grass", glm::vec3(0.0f, 2.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
+	GameGui->RegisterTransformPanel(grass);
+	Instance->_gameObjects.push_back(grass);
 
 	DogeCube* cube = new DogeCube("DogeCube", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
 	GameGui->RegisterTransformPanel(cube);

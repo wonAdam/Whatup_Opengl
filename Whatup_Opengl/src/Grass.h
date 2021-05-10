@@ -1,6 +1,9 @@
 #pragma once
-#include "GameObject.h"
-class Grass : public GameObject
+#include "Quad.h"
+
+#include <glm/glm.hpp>
+
+class Grass : public Quad
 {
 public:
 	Grass(std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
