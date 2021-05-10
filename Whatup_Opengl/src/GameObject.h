@@ -17,10 +17,7 @@ public:
 	GameObject(std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
 	GameObject(std::string name, Transform transform);
 	GameObject(const GameObject& rhs) = delete;
-
-protected:
 	virtual ~GameObject();
-	friend Game;
 
 public:
 	virtual void Update(float deltaTime) = 0;

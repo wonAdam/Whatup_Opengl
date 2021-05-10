@@ -49,8 +49,8 @@ void Mesh::Draw(const Shader& shader, const Transform& transform, bool outline)
     // Original Mesh부분은 Stencil Buffer에 1로 write합니다.
     if (outline == true)
     {
-        GLCall(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
         GLCall(glStencilFunc(GL_ALWAYS, 1, 0xff));
+        GLCall(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
         GLCall(glStencilMask(0xff));
     }
 
@@ -66,7 +66,9 @@ void Mesh::Draw(const Shader& shader, const Transform& transform, bool outline)
     if (outline == true)
     {
         GLCall(glStencilFunc(GL_NOTEQUAL, 1, 0xff));
-        GLCall(glStencilMask(0x00));
+        GLCall(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
+        GLCall(glStencilMask(0xff));
+        //GLCall(glDisable(GL_DEPTH_TEST));
 
         _olShader.Set(&transform, 1.05f, glm::vec3(1.0f, 1.0f, 0.0f));
         _olShader.Use(_textures);
@@ -77,6 +79,7 @@ void Mesh::Draw(const Shader& shader, const Transform& transform, bool outline)
 
         GLCall(glStencilMask(0xff));
         GLCall(glStencilFunc(GL_ALWAYS, 1, 0xff));
+        //GLCall(glEnable(GL_DEPTH_TEST));
     }
 
 }

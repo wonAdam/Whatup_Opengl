@@ -1,7 +1,5 @@
 #include "Triangle.h"
 
-#include <glm/gtc/matrix_transform.hpp>
-
 #include "GLMacro.h"
 #include "shaders/DefaultShader.h"
 
@@ -10,6 +8,12 @@ Triangle::Triangle(std::string name, glm::vec3 position, glm::vec3 rotation, glm
 {
 	_shader = std::unique_ptr<DefaultShader>(new DefaultShader(&_transform));
 	_mesh = std::unique_ptr<Mesh>(new Mesh(_vertices, _indices, _textures));
+}
+
+Triangle::Triangle(std::vector<Texture> textures, std::string name, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
+	: Triangle(name, position, rotation, scale)
+{
+	_textures = textures;
 }
 
 Triangle::~Triangle()

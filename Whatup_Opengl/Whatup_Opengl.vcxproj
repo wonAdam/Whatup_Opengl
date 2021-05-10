@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Quad.cpp" />
+    <ClCompile Include="src\Grass.cpp" />
     <ClCompile Include="src\DogeCube.cpp" />
     <ClCompile Include="src\Cube.cpp" />
     <ClCompile Include="src\lights\DirectionalLight.cpp" />
@@ -181,6 +183,8 @@
     <ClCompile Include="src\SurvivorBackpack.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Quad.h" />
+    <ClInclude Include="src\Grass.h" />
     <ClInclude Include="src\DogeCube.h" />
     <ClInclude Include="src\Cube.h" />
     <ClInclude Include="src\DirectionalLight.h" />

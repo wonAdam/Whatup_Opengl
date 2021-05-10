@@ -5,6 +5,7 @@
 
 #include "Camera.h"
 #include "Triangle.h"
+#include "Quad.h"
 #include "DogeCube.h"
 #include "SurvivorBackpack.h"
 #include "Gui.h"
@@ -78,14 +79,18 @@ void Game::Initialize(float time, GLFWwindow* window)
 	GameGui->RegisterTransformPanel(triangle);
 	Instance->_gameObjects.push_back(triangle);
 
+	Quad* quad = new Quad("Quad", glm::vec3(0.0f, 2.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
+	GameGui->RegisterTransformPanel(quad);
+	Instance->_gameObjects.push_back(quad);
+
 	DogeCube* cube = new DogeCube("DogeCube", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
 	GameGui->RegisterTransformPanel(cube);
 	Instance->_gameObjects.push_back(cube);
 
-	std::shared_ptr<Model> backpack(new Model("models/backpack/backpack.obj"));
-	SurvivorBackpack* sb = new SurvivorBackpack(backpack, "Backpack", glm::vec3(1.0f, 2.0f, 3.0f), glm::vec3(0.0f), glm::vec3(1.0f));
-	GameGui->RegisterTransformPanel(sb);
-	Instance->_gameObjects.push_back(sb);
+	//std::shared_ptr<Model> backpack(new Model("models/backpack/backpack.obj"));
+	//SurvivorBackpack* sb = new SurvivorBackpack(backpack, "Backpack", glm::vec3(1.0f, 2.0f, 3.0f), glm::vec3(0.0f), glm::vec3(1.0f));
+	//GameGui->RegisterTransformPanel(sb);
+	//Instance->_gameObjects.push_back(sb);
 }
 
 void Game::Update(float time)
