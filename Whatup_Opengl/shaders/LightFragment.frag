@@ -34,17 +34,17 @@ void main()
 
     if(L_type == POINT_LIGHT)
     {
-        FragColor = vec4(mix_diffuse + mix_specular, 0.0);
+        FragColor = vec4(mix_diffuse + mix_specular, 1.0);
     }
     else{
         float theta = dot(Normal, normalize(L_direction));
         if(theta > 0.9)
         {
-            FragColor = vec4(mix_diffuse + mix_specular, 0.0);
+            FragColor = vec4(mix_diffuse + mix_specular, 1.0);
         }
         else
         {
-            FragColor = vec4(0.0);
+            FragColor = vec4(vec3(0.0), 1.0);
         }
     }
 

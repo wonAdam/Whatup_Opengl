@@ -81,20 +81,12 @@ bool Initialization_glew()
     if (GLEW_OK != err)
         return false;
 
-    glViewport(0, 0, 800, 600);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_STENCIL_TEST);
-    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+    GLCall(glViewport(0, 0, 800, 600));
+    GLCall(glEnable(GL_DEPTH_TEST));
+    GLCall(glEnable(GL_STENCIL_TEST));
+    GLCall(glEnable(GL_BLEND));
+    GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+    GLCall(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
 
     return true;
-}
-
-void Initialization_ImGui(GLFWwindow* window)
-{
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGui::StyleColorsDark();
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    const char* glsl_version = "#version 330";
-    ImGui_ImplOpenGL3_Init(glsl_version);
 }

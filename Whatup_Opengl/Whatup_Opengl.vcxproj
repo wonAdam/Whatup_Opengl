@@ -181,9 +181,11 @@
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\Triangle.cpp" />
     <ClCompile Include="src\SurvivorBackpack.cpp" />
+    <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Grass.h" />
+    <ClInclude Include="src\ITransparent.h" />
     <ClInclude Include="src\Quad.h" />
     <ClInclude Include="src\DogeCube.h" />
     <ClInclude Include="src\Cube.h" />
@@ -221,6 +223,7 @@
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Triangle.h" />
     <ClInclude Include="src\SurvivorBackpack.h" />
+    <ClInclude Include="src\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\DepthTesting.frag" />

@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Triangle.h"
 #include "Quad.h"
+#include "Window.h"
 #include "Grass.h"
 #include "DogeCube.h"
 #include "SurvivorBackpack.h"
@@ -17,6 +18,7 @@
 #include "shaders/DefaultShader.h"
 #include "shaders/LightShader.h"
 #include "GLMacro.h"
+#include <map>
 
 Game* Game::Instance;
 Camera* Game::GameCamera;
@@ -66,27 +68,37 @@ void Game::Initialize(float time, GLFWwindow* window)
 	// --- Game Initialization --- //
 	// Lights
 	DirectionalLight* dirLight = new DirectionalLight("Directional Light", glm::vec3(-30.0f, 120.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.9f, 0.9f, 0.9f), glm::vec3(0.8f, 0.8f, 0.8f));
-	Instance->_lights.push_back(dirLight);
+	Game::Instance->AddLight(dirLight);
 	GameGui->RegisterTransformPanel(dirLight);
+
 	PointLight* pLight = new PointLight("Point Light", glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.9f, 0.9f, 0.9f), glm::vec3(0.8f, 0.8f, 0.8f));
-	Instance->_lights.push_back(pLight);
+	Game::Instance->AddLight(pLight);
 	GameGui->RegisterTransformPanel(pLight);
+
 	SpotLight* sLight = new SpotLight("Spot Light", glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.9f, 0.9f, 0.9f), glm::vec3(0.8f, 0.8f, 0.8f));
-	Instance->_lights.push_back(sLight);
+	Game::Instance->AddLight(sLight);
 	GameGui->RegisterTransformPanel(sLight);
 
 	// GameObjects
 	Triangle* triangle = new Triangle("Triangle", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
 	GameGui->RegisterTransformPanel(triangle);
-	Instance->_gameObjects.push_back(triangle);
+	Game::Instance->AddGameObject(triangle);
 
 	Grass* grass = new Grass("Grass", glm::vec3(0.0f, 2.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
 	GameGui->RegisterTransformPanel(grass);
-	Instance->_gameObjects.push_back(grass);
+	Game::Instance->AddGameObject(grass);
 
 	DogeCube* cube = new DogeCube("DogeCube", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
 	GameGui->RegisterTransformPanel(cube);
-	Instance->_gameObjects.push_back(cube);
+	Game::Instance->AddGameObject(cube);
+
+	for (int i = 0; i < 3; i++)
+	{
+		Window* transWindow = new Window("Window" + std::to_string(i), glm::vec3(0.0f, static_cast<float>(-i), -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
+		GameGui->RegisterTransformPanel(transWindow);
+		Game::Instance->AddGameObject(transWindow);
+	}
+	
 
 	//std::shared_ptr<Model> backpack(new Model("models/backpack/backpack.obj"));
 	//SurvivorBackpack* sb = new SurvivorBackpack(backpack, "Backpack", glm::vec3(1.0f, 2.0f, 3.0f), glm::vec3(0.0f), glm::vec3(1.0f));
@@ -101,16 +113,23 @@ void Game::Update(float time)
 
 	GameCamera->Update(deltaTime);
 
-	if (GameCamera->FPSMode == false)
-		CursorEnable();
-	else
-		CursorDisable();
-
 	for (GameObject* go : Instance->_gameObjects)
 		go->Update(deltaTime);
 
 	for (Light* li : Instance->_lights)
 		li->Update(deltaTime);
+
+	// Render Transparent Object by Order
+	std::map<float, GameObject*> sorted;
+	for (GameObject* t_go : Instance->_gameObjects_transparent)
+	{
+		float distance = glm::length(GameCamera->_transform._position - t_go->_transform._position);
+		sorted[distance] = t_go;
+	}
+	for (auto it = sorted.rbegin(); it != sorted.rend(); ++it)
+	{
+		it->second->Update(deltaTime);
+	}
 
 	GameGui->Update();
 }
@@ -149,6 +168,19 @@ void Game::CursorEnable()
 	glfwSetInputMode(GameWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
 
+void Game::AddGameObject(GameObject* go)
+{
+	if (dynamic_cast<ITransparent*>(go) == nullptr)
+		Game::Instance->_gameObjects.push_back(go);
+	else
+		Game::Instance->_gameObjects_transparent.push_back(go);
+}
+
+void Game::AddLight(Light* li)
+{
+	Game::Instance->_lights.push_back(li);
+}
+
 void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -167,6 +199,11 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 	{
 		GameCamera->FPSMode = !GameCamera->FPSMode;
 		firstMouseMove = true;
+
+		if (GameCamera->FPSMode == false)
+			CursorEnable();
+		else
+			CursorDisable();
 	}
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);

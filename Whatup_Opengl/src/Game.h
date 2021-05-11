@@ -17,8 +17,9 @@ public: // Global Instances
 	static Gui* GameGui;
 	static GLFWwindow* GameWindow;
 
-public: // GameObjects
+private: // GameObjects
 	std::vector<GameObject*> _gameObjects;
+	std::vector<GameObject*> _gameObjects_transparent;
 	std::vector<Light*> _lights;
 
 private:
@@ -43,6 +44,9 @@ public:
 	static void LoadLightUniform(const Shader& shader);
 	static void CursorDisable();
 	static void CursorEnable();
+
+	static void AddGameObject(GameObject* go);
+	static void AddLight(Light* li);
 
 private:
 	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);

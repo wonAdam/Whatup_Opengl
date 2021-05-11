@@ -61,19 +61,20 @@ struct Material {
 
 uniform Material material;
 
-
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir, vec3 diffuse_tex, vec3 specular_tex);
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir,  vec3 diffuse_tex, vec3 specular_tex);
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, vec3 diffuse_tex, vec3 specular_tex);
 
 void main()
 {
-    vec4 mix_diffuse = vec4(texture(material.diffuse0, TexCoord) + 
+    vec3 mix_diffuse = vec3(texture(material.diffuse0, TexCoord) + 
                             texture(material.diffuse1, TexCoord) + 
                             texture(material.diffuse2, TexCoord)) / 3; 
 
-    if(mix_diffuse.a == 0.0) 
-        discard;
+    float alpha = vec4(texture(material.diffuse0, TexCoord) + 
+                            texture(material.diffuse1, TexCoord) + 
+                            texture(material.diffuse2, TexCoord)).a; 
+
 
     vec3 mix_specular = vec3(texture(material.specular0, TexCoord) + 
                             texture(material.specular1, TexCoord)) / 2; 
@@ -95,7 +96,8 @@ void main()
       for(int i = 0; i < n_of_spot_lights; i++)
           result += CalcSpotLight(spotLights[i], Normal, FragPos, viewDir, vec3(mix_diffuse), mix_specular);
 
-    FragColor = vec4(result, 1.0);
+    FragColor = vec4(result, alpha);
+
 } 
 
 

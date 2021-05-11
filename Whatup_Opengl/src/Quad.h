@@ -29,6 +29,8 @@ protected:
         Vertex(0.5f,  0.5f, 0.0f,  0.0f, 0.0f, -1.0f, 1.0f, 1.0f)   // top right
     };
     std::vector<unsigned int> _indices = { 0,1,2,0,2,3 };
+
+    // default textures
     std::vector<Texture> _textures = {
         Texture("img/container2.png", Texture::Type::DIFFUSE),
         Texture("img/doge.png", Texture::Type::DIFFUSE),
