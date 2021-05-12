@@ -87,6 +87,9 @@ bool Initialization_glew()
     GLCall(glEnable(GL_BLEND));
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
     GLCall(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
+    GLCall(glEnable(GL_CULL_FACE));
+    GLCall(glCullFace(GL_BACK));
+    GLCall(glFrontFace(GL_CCW));
 
     return true;
 }
