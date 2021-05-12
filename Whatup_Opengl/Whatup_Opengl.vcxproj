@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Whatup_Opengl\src\shaders;$(SolutionDir)Whatup_Opengl\src\lights;$(SolutionDir)Whatup_Opengl\src;$(SolutionDir)Whatup_Opengl\dependencies\assimp\include;$(SolutionDir)Whatup_Opengl\dependencies\imgui;$(SolutionDir)Whatup_Opengl\dependencies\glm;$(SolutionDir)Whatup_Opengl\dependencies\stb_image;$(SolutionDir)Whatup_Opengl\dependencies\glew\include;$(SolutionDir)Whatup_Opengl\dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Whatup_Opengl\src;$(SolutionDir)Whatup_Opengl\dependencies\assimp\include;$(SolutionDir)Whatup_Opengl\dependencies\imgui;$(SolutionDir)Whatup_Opengl\dependencies\glm;$(SolutionDir)Whatup_Opengl\dependencies\stb_image;$(SolutionDir)Whatup_Opengl\dependencies\glew\include;$(SolutionDir)Whatup_Opengl\dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -105,7 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Whatup_Opengl\src\shaders;$(SolutionDir)Whatup_Opengl\src\lights;$(SolutionDir)Whatup_Opengl\src;$(SolutionDir)Whatup_Opengl\dependencies\assimp\include;$(SolutionDir)Whatup_Opengl\dependencies\imgui;$(SolutionDir)Whatup_Opengl\dependencies\glm;$(SolutionDir)Whatup_Opengl\dependencies\stb_image;$(SolutionDir)Whatup_Opengl\dependencies\glew\include;$(SolutionDir)Whatup_Opengl\dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Whatup_Opengl\src;$(SolutionDir)Whatup_Opengl\dependencies\assimp\include;$(SolutionDir)Whatup_Opengl\dependencies\imgui;$(SolutionDir)Whatup_Opengl\dependencies\glm;$(SolutionDir)Whatup_Opengl\dependencies\stb_image;$(SolutionDir)Whatup_Opengl\dependencies\glew\include;$(SolutionDir)Whatup_Opengl\dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,7 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Whatup_Opengl\src\shaders;$(SolutionDir)Whatup_Opengl\src\lights;$(SolutionDir)Whatup_Opengl\src;$(SolutionDir)Whatup_Opengl\dependencies\assimp\include;$(SolutionDir)Whatup_Opengl\dependencies\imgui;$(SolutionDir)Whatup_Opengl\dependencies\glm;$(SolutionDir)Whatup_Opengl\dependencies\stb_image;$(SolutionDir)Whatup_Opengl\dependencies\glew\include;$(SolutionDir)Whatup_Opengl\dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Whatup_Opengl\src;$(SolutionDir)Whatup_Opengl\dependencies\assimp\include;$(SolutionDir)Whatup_Opengl\dependencies\imgui;$(SolutionDir)Whatup_Opengl\dependencies\glm;$(SolutionDir)Whatup_Opengl\dependencies\stb_image;$(SolutionDir)Whatup_Opengl\dependencies\glew\include;$(SolutionDir)Whatup_Opengl\dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,7 +139,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Whatup_Opengl\src\shaders;$(SolutionDir)Whatup_Opengl\src\lights;$(SolutionDir)Whatup_Opengl\src;$(SolutionDir)Whatup_Opengl\dependencies\assimp\include;$(SolutionDir)Whatup_Opengl\dependencies\imgui;$(SolutionDir)Whatup_Opengl\dependencies\glm;$(SolutionDir)Whatup_Opengl\dependencies\stb_image;$(SolutionDir)Whatup_Opengl\dependencies\glew\include;$(SolutionDir)Whatup_Opengl\dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Whatup_Opengl\src;$(SolutionDir)Whatup_Opengl\dependencies\assimp\include;$(SolutionDir)Whatup_Opengl\dependencies\imgui;$(SolutionDir)Whatup_Opengl\dependencies\glm;$(SolutionDir)Whatup_Opengl\dependencies\stb_image;$(SolutionDir)Whatup_Opengl\dependencies\glew\include;$(SolutionDir)Whatup_Opengl\dependencies\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,10 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Grass.cpp" />
-    <ClCompile Include="src\Quad.cpp" />
-    <ClCompile Include="src\DogeCube.cpp" />
-    <ClCompile Include="src\Cube.cpp" />
+    <ClCompile Include="src\Framebuffer.cpp" />
+    <ClCompile Include="src\gameobjects\Grass.cpp" />
+    <ClCompile Include="src\gameobjects\Quad.cpp" />
+    <ClCompile Include="src\gameobjects\DogeCube.cpp" />
+    <ClCompile Include="src\gameobjects\Cube.cpp" />
     <ClCompile Include="src\lights\DirectionalLight.cpp" />
     <ClCompile Include="src\lights\Light.cpp" />
     <ClCompile Include="src\lights\PointLight.cpp" />
@@ -175,20 +176,21 @@
     <ClCompile Include="dependencies\imgui\imgui_tables.cpp" />
     <ClCompile Include="dependencies\imgui\imgui_widgets.cpp" />
     <ClCompile Include="dependencies\stb_image\stb_image.cpp" />
-    <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\gameobjects\GameObject.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Texture.cpp" />
-    <ClCompile Include="src\Triangle.cpp" />
-    <ClCompile Include="src\SurvivorBackpack.cpp" />
-    <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\gameobjects\Triangle.cpp" />
+    <ClCompile Include="src\gameobjects\SurvivorBackpack.cpp" />
+    <ClCompile Include="src\gameobjects\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Grass.h" />
+    <ClInclude Include="src\Framebuffer.h" />
+    <ClInclude Include="src\gameobjects\Grass.h" />
     <ClInclude Include="src\ITransparent.h" />
-    <ClInclude Include="src\Quad.h" />
-    <ClInclude Include="src\DogeCube.h" />
-    <ClInclude Include="src\Cube.h" />
+    <ClInclude Include="src\gameobjects\Quad.h" />
+    <ClInclude Include="src\gameobjects\DogeCube.h" />
+    <ClInclude Include="src\gameobjects\Cube.h" />
     <ClInclude Include="src\DirectionalLight.h" />
     <ClInclude Include="src\IOutlineable.h" />
     <ClInclude Include="src\lights\DirectionalLight.h" />
@@ -215,15 +217,15 @@
     <ClInclude Include="dependencies\imgui\imstb_textedit.h" />
     <ClInclude Include="dependencies\imgui\imstb_truetype.h" />
     <ClInclude Include="dependencies\stb_image\stb_image.h" />
-    <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\gameobjects\GameObject.h" />
     <ClInclude Include="src\GLMacro.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\Transform.h" />
-    <ClInclude Include="src\Triangle.h" />
-    <ClInclude Include="src\SurvivorBackpack.h" />
-    <ClInclude Include="src\Window.h" />
+    <ClInclude Include="src\gameobjects\Triangle.h" />
+    <ClInclude Include="src\gameobjects\SurvivorBackpack.h" />
+    <ClInclude Include="src\gameobjects\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\DepthTesting.frag" />

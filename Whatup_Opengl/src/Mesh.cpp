@@ -9,7 +9,7 @@
 #include "shaders/DefaultShader.h"
 #include "shaders/OutlineShader.h"
 #include "Texture.h"
-#include "GameObject.h"
+#include "gameobjects/GameObject.h"
 #include "Transform.h"
 #include "Game.h"
 #include "Camera.h"

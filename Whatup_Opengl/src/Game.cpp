@@ -1,15 +1,17 @@
 #include "Game.h"
 
+#include <map>
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 #include "Camera.h"
-#include "Triangle.h"
-#include "Quad.h"
-#include "Window.h"
-#include "Grass.h"
-#include "DogeCube.h"
-#include "SurvivorBackpack.h"
+#include "gameobjects/Triangle.h"
+#include "gameobjects/Quad.h"
+#include "gameobjects/Window.h"
+#include "gameobjects/Grass.h"
+#include "gameobjects/DogeCube.h"
+#include "gameobjects/SurvivorBackpack.h"
 #include "Gui.h"
 #include "lights/Light.h"
 #include "lights/DirectionalLight.h"
@@ -18,7 +20,6 @@
 #include "shaders/DefaultShader.h"
 #include "shaders/LightShader.h"
 #include "GLMacro.h"
-#include <map>
 
 Game* Game::Instance;
 Camera* Game::GameCamera;

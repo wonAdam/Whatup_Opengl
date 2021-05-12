@@ -1,15 +1,15 @@
 #include "Gui.h"
 
 #include <glm/gtc/type_ptr.hpp>
-#include "GameObject.h"
+#include "gameobjects/GameObject.h"
+#include "gameobjects/DogeCube.h"
 #include "Transform.h"
 #include "Game.h"
 #include "Camera.h"
 #include "lights/Light.h"
-#include "SpotLight.h"
-#include "DirectionalLight.h"
-#include "PointLight.h"
-#include "DogeCube.h"
+#include "lights/SpotLight.h"
+#include "lights/DirectionalLight.h"
+#include "lights/PointLight.h"
 
 Gui::Gui(GLFWwindow* window)
 {
