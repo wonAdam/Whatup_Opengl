@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\shaders\ScreenShader.cpp" />
     <ClCompile Include="src\Framebuffer.cpp" />
     <ClCompile Include="src\gameobjects\Grass.cpp" />
     <ClCompile Include="src\gameobjects\Quad.cpp" />
@@ -185,6 +186,7 @@
     <ClCompile Include="src\gameobjects\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\shaders\ScreenShader.h" />
     <ClInclude Include="src\Framebuffer.h" />
     <ClInclude Include="src\gameobjects\Grass.h" />
     <ClInclude Include="src\ITransparent.h" />
@@ -229,11 +231,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\DepthTesting.frag" />
-    <None Include="shaders\FragmentShader.frag" />
+    <None Include="shaders\DefaultFragment.frag" />
+    <None Include="shaders\ScreenFragment.frag" />
+    <None Include="shaders\ScreenVertex.vert" />
     <None Include="shaders\LightFragment.frag" />
     <None Include="shaders\OutlineVertShader.vert" />
     <None Include="shaders\OutlineFragShader.frag" />
-    <None Include="shaders\VertexShader.vert" />
+    <None Include="shaders\DefaultVertex.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\container.jpg" />

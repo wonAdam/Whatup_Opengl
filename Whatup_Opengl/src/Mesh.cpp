@@ -8,6 +8,7 @@
 #include "shaders/Shader.h"
 #include "shaders/DefaultShader.h"
 #include "shaders/OutlineShader.h"
+#include "shaders/ScreenShader.h"
 #include "Texture.h"
 #include "gameobjects/GameObject.h"
 #include "Transform.h"
@@ -82,6 +83,16 @@ void Mesh::Draw(const Shader& shader, const Transform& transform, bool outline)
         //GLCall(glEnable(GL_DEPTH_TEST));
     }
 
+}
+
+void Mesh::Draw(const ScreenShader& shader)
+{
+    shader.Use(_textures);
+
+    // draw mesh
+    glBindVertexArray(_VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glBindVertexArray(0);
 }
 
 void Mesh::initialization()

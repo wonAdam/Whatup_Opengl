@@ -17,6 +17,7 @@ public:
 public:
 	Texture(const char* path, Texture::Type type);
 	Texture(unsigned int id, const char* path, Texture::Type type);
+	Texture(unsigned int id);
 	virtual ~Texture();
 
 	static unsigned int LoadTextureFromFile(const char* path, std::string& directory, bool gamma = false);

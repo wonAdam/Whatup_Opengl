@@ -13,20 +13,25 @@
 #include "gameobjects/DogeCube.h"
 #include "gameobjects/SurvivorBackpack.h"
 #include "Gui.h"
+#include "Framebuffer.h"
 #include "lights/Light.h"
 #include "lights/DirectionalLight.h"
 #include "lights/PointLight.h"
 #include "lights/SpotLight.h"
 #include "shaders/DefaultShader.h"
 #include "shaders/LightShader.h"
+#include "shaders/ScreenShader.h"
 #include "GLMacro.h"
 
 Game* Game::Instance;
 Camera* Game::GameCamera;
 Gui* Game::GameGui;
 GLFWwindow* Game::GameWindow;
+Framebuffer* Game::GameFramebuffer;
 float Game::lastFrame = 0.0f;
 float Game::deltaTime = 0.0f;
+int Game::winWidth = 800;
+int Game::winHeight = 600;
 float Game::lastMouseX;
 float Game::lastMouseY;
 bool Game::firstMouseMove = true;
@@ -46,13 +51,24 @@ Game::~Game()
 	delete GameCamera;
 }
 
-void Game::Initialize(float time, GLFWwindow* window)
+void Game::Initialize()
 {
-	// --- Basic Initialization --- //
 	Instance = new Game();
-	GameGui = new Gui(window);
 
-	GameWindow = window;
+	Initialize_glfw();
+	Initialization_glew();
+
+	lastFrame = glfwGetTime();
+	deltaTime = 0.0f;
+}
+
+void Game::Start()
+{
+	// --- Core Objects --- //
+	GameGui = new Gui(Game::GameWindow);
+
+	std::shared_ptr<ScreenShader> screenShader(new ScreenShader());
+	GameFramebuffer = new Framebuffer(screenShader);
 
 	GameCamera = new Camera(
 		glm::vec3(0.0f, 0.0f, 3.0f),
@@ -60,13 +76,7 @@ void Game::Initialize(float time, GLFWwindow* window)
 	);
 	GameGui->RegisterTransformPanel(GameCamera);
 
-	glfwSetKeyCallback(window, Game::key_callback);
-	glfwSetCursorPosCallback(window, Game::cursor_position_callback);
-
-	lastFrame = time;
-	deltaTime = 0.0f;
-
-	// --- Game Initialization --- //
+	// --- Game Objects --- //
 	// Lights
 	DirectionalLight* dirLight = new DirectionalLight("Directional Light", glm::vec3(-30.0f, 120.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.9f, 0.9f, 0.9f), glm::vec3(0.8f, 0.8f, 0.8f));
 	Game::Instance->AddLight(dirLight);
@@ -80,7 +90,6 @@ void Game::Initialize(float time, GLFWwindow* window)
 	Game::Instance->AddLight(sLight);
 	GameGui->RegisterTransformPanel(sLight);
 
-	// GameObjects
 	Triangle* triangle = new Triangle("Triangle", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
 	GameGui->RegisterTransformPanel(triangle);
 	Game::Instance->AddGameObject(triangle);
@@ -99,7 +108,7 @@ void Game::Initialize(float time, GLFWwindow* window)
 		GameGui->RegisterTransformPanel(transWindow);
 		Game::Instance->AddGameObject(transWindow);
 	}
-	
+
 
 	//std::shared_ptr<Model> backpack(new Model("models/backpack/backpack.obj"));
 	//SurvivorBackpack* sb = new SurvivorBackpack(backpack, "Backpack", glm::vec3(1.0f, 2.0f, 3.0f), glm::vec3(0.0f), glm::vec3(1.0f));
@@ -107,11 +116,16 @@ void Game::Initialize(float time, GLFWwindow* window)
 	//Instance->_gameObjects.push_back(sb);
 }
 
-void Game::Update(float time)
+void Game::Update()
 {
+	GameFramebuffer->Bind(true);
+
+	// Time
+	float time = glfwGetTime();
 	deltaTime = time - lastFrame;
 	lastFrame = time;
 
+	// Updates
 	GameCamera->Update(deltaTime);
 
 	for (GameObject* go : Instance->_gameObjects)
@@ -133,6 +147,14 @@ void Game::Update(float time)
 	}
 
 	GameGui->Update();
+
+	GameFramebuffer->Bind(false);
+	GameFramebuffer->Draw();
+}
+
+void Game::PostProcessing()
+{
+	
 }
 
 
@@ -171,6 +193,7 @@ void Game::CursorEnable()
 
 void Game::AddGameObject(GameObject* go)
 {
+	// transparent object check
 	if (dynamic_cast<ITransparent*>(go) == nullptr)
 		Game::Instance->_gameObjects.push_back(go);
 	else
@@ -181,6 +204,54 @@ void Game::AddLight(Light* li)
 {
 	Game::Instance->_lights.push_back(li);
 }
+
+bool Game::Initialize_glfw()
+{
+	/* Initialize the library */
+	if (!glfwInit())
+		return false;
+
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	/* Create a windowed mode window and its OpenGL context */
+	GameWindow = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Whatup OpenGL ! ", NULL, NULL);
+	if (!GameWindow)
+	{
+		glfwTerminate();
+		return false;
+	}
+	/* Make the window's context current */
+	glfwMakeContextCurrent(GameWindow);
+
+	glfwSetKeyCallback(Game::GameWindow, Game::key_callback);
+	glfwSetCursorPosCallback(Game::GameWindow, Game::cursor_position_callback);
+	glfwSetWindowSizeCallback(Game::GameWindow, Game::window_size_callback);
+
+	return true;
+}
+
+bool Game::Initialization_glew()
+{
+	glewExperimental = GL_TRUE;
+	GLenum err = glewInit();
+	if (GLEW_OK != err)
+		return false;
+
+	GLCall(glViewport(0, 0, 800, 600));
+	GLCall(glEnable(GL_DEPTH_TEST));
+	GLCall(glEnable(GL_STENCIL_TEST));
+	GLCall(glEnable(GL_BLEND));
+	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+	GLCall(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
+	GLCall(glEnable(GL_CULL_FACE));
+	GLCall(glCullFace(GL_BACK));
+	GLCall(glFrontFace(GL_CCW));
+
+	return true;
+}
+
 
 void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -210,7 +281,6 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 		glfwSetWindowShouldClose(window, true);
 }
 
-#include <iostream>
 void Game::cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 {
 	if (GameCamera->FPSMode == false) return;
@@ -228,4 +298,11 @@ void Game::cursor_position_callback(GLFWwindow* window, double xpos, double ypos
 	lastMouseY = ypos;
 
 	GameCamera->Rotate(xoffset, yoffset);
+}
+
+void Game::window_size_callback(GLFWwindow* window, int width, int height)
+{
+	winWidth = width;
+	winHeight = height;
+	GLCall(glViewport(0, 0, width, height));
 }

@@ -111,6 +111,9 @@
     <ClCompile Include="src\Framebuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\shaders\ScreenShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\stb_image\stb_image.h">
@@ -236,14 +239,19 @@
     <ClInclude Include="src\Framebuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\shaders\ScreenShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\VertexShader.vert" />
-    <None Include="shaders\FragmentShader.frag" />
+    <None Include="shaders\DefaultVertex.vert" />
+    <None Include="shaders\DefaultFragment.frag" />
     <None Include="shaders\LightFragment.frag" />
     <None Include="shaders\DepthTesting.frag" />
     <None Include="shaders\OutlineFragShader.frag" />
     <None Include="shaders\OutlineVertShader.vert" />
+    <None Include="shaders\ScreenVertex.vert" />
+    <None Include="shaders\ScreenFragment.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\container.jpg">

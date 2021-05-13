@@ -8,6 +8,7 @@
 struct Transform;
 class Texture;
 class Shader;
+class ScreenShader;
 
 struct Vertex
 {
@@ -35,6 +36,7 @@ public:
 	virtual ~Mesh();
 
 	void Draw(const Shader& shader, const Transform& transform, bool outline = false);
+	void Draw(const ScreenShader& shader);
 
 private:
 	void initialization();

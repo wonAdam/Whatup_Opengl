@@ -19,8 +19,11 @@ class Shader
 protected:
     unsigned int ID;
 
-public:
+protected:
     virtual void Use(const std::vector<Texture>& textures) const = 0;
+    friend class Mesh;
+
+public:
     virtual ~Shader();
 
 protected:
@@ -31,7 +34,7 @@ protected:
     void setFloat(const std::string& name, float value) const;
     void setMat4(const std::string& name, glm::mat4 value) const;
     void setVec3(const std::string& name, glm::vec3 value) const;
-    void BindTexture(const std::vector<Texture>& textures) const;
+    virtual void BindTexture(const std::vector<Texture>& textures) const;
 
     friend class DirectionalLight;
     friend class Light;

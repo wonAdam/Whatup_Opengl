@@ -20,6 +20,11 @@ Texture::Texture(unsigned int id, const char* path, Texture::Type type)
 {
 }
 
+Texture::Texture(unsigned int id)
+    : _id(id)
+{
+}
+
 Texture::~Texture()
 {
 }

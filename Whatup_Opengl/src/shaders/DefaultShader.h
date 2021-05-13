@@ -14,8 +14,9 @@ public:
 	DefaultShader& operator=(const DefaultShader& rhs) = delete;
 	virtual ~DefaultShader();
 
-public:
+protected:
 	virtual void Use(const std::vector<Texture>& textures) const override;
+	friend Mesh;
 
 };
 

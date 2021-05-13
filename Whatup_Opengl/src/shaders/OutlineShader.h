@@ -16,9 +16,10 @@ public:
 	OutlineShader& operator=(const OutlineShader& rhs) = delete;
 	virtual ~OutlineShader();
 
-public:
+protected:
 	void Set(const Transform* transform, float scale, glm::vec3 color);
 	virtual void Use(const std::vector<Texture>& textures) const override;
+	friend class Mesh;
 
 };
 
