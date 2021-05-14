@@ -14,11 +14,6 @@ DirectionalLight::~DirectionalLight()
 {
 }
 
-void DirectionalLight::Update(float deltaTime)
-{
-    _mesh->Draw(*_shader, _transform);
-}
-
 void DirectionalLight::LoadUniformValue(const unsigned int index, const Shader& shader) const
 {
     shader.setVec3("dirLight[" + std::to_string(index) + "].diffuse", _diffuse);

@@ -24,5 +24,13 @@ Triangle::~Triangle()
 
 void Triangle::Update(float deltaTime)
 {
+}
+
+void Triangle::LateUpdate(float deltaTime)
+{
+}
+
+void Triangle::Render(float deltaTime)
+{
 	_mesh->Draw(*_shader, _transform);
 }

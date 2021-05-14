@@ -13,6 +13,15 @@ Window::~Window()
 
 void Window::Update(float deltaTime)
 {
+
+}
+
+void Window::LateUpdate(float deltaTime)
+{
+}
+
+void Window::Render(float deltaTime)
+{
 	GLCall(glDisable(GL_CULL_FACE));
 	_mesh->Draw(*_shader, _transform);
 	GLCall(glEnable(GL_CULL_FACE));

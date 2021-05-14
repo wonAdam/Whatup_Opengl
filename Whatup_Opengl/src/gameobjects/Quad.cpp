@@ -24,5 +24,13 @@ Quad::~Quad()
 
 void Quad::Update(float deltaTime)
 {
+}
+
+void Quad::LateUpdate(float deltaTime)
+{
+}
+
+void Quad::Render(float deltaTime)
+{
 	_mesh->Draw(*_shader, _transform);
 }

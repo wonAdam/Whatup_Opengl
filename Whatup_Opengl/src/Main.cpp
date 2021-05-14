@@ -25,6 +25,9 @@ int main(void)
     while (!glfwWindowShouldClose(Game::GameWindow))
     {
         Game::Update();
+        Game::LateUpdate();
+        Game::Render();
+        Game::OnGUI();
 
         /* Swap front and back buffers */
         glfwSwapBuffers(Game::GameWindow);

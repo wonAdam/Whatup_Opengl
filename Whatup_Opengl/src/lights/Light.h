@@ -22,6 +22,5 @@ protected:
 
 public:
 	virtual void LoadUniformValue(const unsigned int index, const Shader& shader) const = 0;
-	virtual void Update(float deltaTime) = 0;
 };
 

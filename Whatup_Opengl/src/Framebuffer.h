@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "Mesh.h"
+#include "gameobjects/Quad.h"
 #include "shaders/ScreenShader.h"
 
 class Framebuffer

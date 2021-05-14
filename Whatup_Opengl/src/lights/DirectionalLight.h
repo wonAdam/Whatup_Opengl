@@ -12,7 +12,9 @@ public:
 	virtual ~DirectionalLight();
 
 public:
-	virtual void Update(float deltaTime) override;
+	using Cube::Update;
+	using Cube::LateUpdate;
+	using Cube::Render;
 	virtual void LoadUniformValue(const unsigned int index, const Shader& shader) const override;
 };
 

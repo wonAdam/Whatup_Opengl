@@ -46,9 +46,7 @@ Game::~Game()
 		delete go;
 
 	GameGui->End();
-
 	delete GameGui;
-	delete GameCamera;
 }
 
 void Game::Initialize()
@@ -74,33 +72,34 @@ void Game::Start()
 		glm::vec3(0.0f, 0.0f, 3.0f),
 		glm::vec3(0.0f, 0.0f, 0.0f)
 	);
+	Game::Instance->AddGameObject(GameCamera);
 	GameGui->RegisterTransformPanel(GameCamera);
 
 	// --- Game Objects --- //
 	// Lights
 	DirectionalLight* dirLight = new DirectionalLight("Directional Light", glm::vec3(-30.0f, 120.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.9f, 0.9f, 0.9f), glm::vec3(0.8f, 0.8f, 0.8f));
-	Game::Instance->AddLight(dirLight);
+	Game::Instance->AddGameObject(dirLight);
 	GameGui->RegisterTransformPanel(dirLight);
 
 	PointLight* pLight = new PointLight("Point Light", glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.9f, 0.9f, 0.9f), glm::vec3(0.8f, 0.8f, 0.8f));
-	Game::Instance->AddLight(pLight);
+	Game::Instance->AddGameObject(pLight);
 	GameGui->RegisterTransformPanel(pLight);
 
 	SpotLight* sLight = new SpotLight("Spot Light", glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.9f, 0.9f, 0.9f), glm::vec3(0.8f, 0.8f, 0.8f));
-	Game::Instance->AddLight(sLight);
+	Game::Instance->AddGameObject(sLight);
 	GameGui->RegisterTransformPanel(sLight);
 
 	Triangle* triangle = new Triangle("Triangle", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
-	GameGui->RegisterTransformPanel(triangle);
 	Game::Instance->AddGameObject(triangle);
+	GameGui->RegisterTransformPanel(triangle);
 
 	Grass* grass = new Grass("Grass", glm::vec3(0.0f, 2.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
-	GameGui->RegisterTransformPanel(grass);
 	Game::Instance->AddGameObject(grass);
+	GameGui->RegisterTransformPanel(grass);
 
 	DogeCube* cube = new DogeCube("DogeCube", glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 180.0f, 0.0f), glm::vec3(1.0f));
-	GameGui->RegisterTransformPanel(cube);
 	Game::Instance->AddGameObject(cube);
+	GameGui->RegisterTransformPanel(cube);
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -118,45 +117,53 @@ void Game::Start()
 
 void Game::Update()
 {
-	GameFramebuffer->Bind(true);
-
 	// Time
 	float time = glfwGetTime();
 	deltaTime = time - lastFrame;
 	lastFrame = time;
 
-	// Updates
-	GameCamera->Update(deltaTime);
-
+	// Update
 	for (GameObject* go : Instance->_gameObjects)
 		go->Update(deltaTime);
 
-	for (Light* li : Instance->_lights)
-		li->Update(deltaTime);
+}
 
-	// Render Transparent Object by Order
+void Game::LateUpdate()
+{
+	// LateUpdate
+	for (GameObject* go : Instance->_gameObjects)
+		go->LateUpdate(deltaTime);
+}
+
+void Game::Render()
+{
+	GameFramebuffer->Bind(true);
+
+	// Render Non-Transparent Objects
+	auto it = Instance->_gameObjects.begin();
+	for (; dynamic_cast<ITransparent*>(*it) == nullptr; it++)
+		(*it)->Render(deltaTime);
+
+	// Render Transparent Objects
 	std::map<float, GameObject*> sorted;
-	for (GameObject* t_go : Instance->_gameObjects_transparent)
+	for (; it != Instance->_gameObjects.end(); it++)
 	{
-		float distance = glm::length(GameCamera->_transform._position - t_go->_transform._position);
-		sorted[distance] = t_go;
+		float distance = glm::length(GameCamera->_transform._position - (*it)->_transform._position);
+		sorted[distance] = (*it);
 	}
 	for (auto it = sorted.rbegin(); it != sorted.rend(); ++it)
 	{
-		it->second->Update(deltaTime);
+		it->second->Render(deltaTime);
 	}
-
-	GameGui->Update();
 
 	GameFramebuffer->Bind(false);
 	GameFramebuffer->Draw();
 }
 
-void Game::PostProcessing()
+void Game::OnGUI()
 {
-	
+	GameGui->Update();
 }
-
 
 void Game::End()
 {
@@ -195,15 +202,14 @@ void Game::AddGameObject(GameObject* go)
 {
 	// transparent object check
 	if (dynamic_cast<ITransparent*>(go) == nullptr)
-		Game::Instance->_gameObjects.push_back(go);
+		Game::Instance->_gameObjects.push_front(go);
 	else
-		Game::Instance->_gameObjects_transparent.push_back(go);
+		Game::Instance->_gameObjects.push_back(go);
+
+	if(dynamic_cast<Light*>(go) != nullptr)
+		Game::Instance->_lights.push_back(dynamic_cast<Light*>(go));
 }
 
-void Game::AddLight(Light* li)
-{
-	Game::Instance->_lights.push_back(li);
-}
 
 bool Game::Initialize_glfw()
 {

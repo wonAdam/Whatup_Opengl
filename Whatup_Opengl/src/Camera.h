@@ -29,6 +29,10 @@ public:
 
 public:
 	virtual void Update(float deltaTime) override;
+	virtual void LateUpdate(float deltaTime) override;
+	virtual void Render(float deltaTime) override;
+
+public:
 	glm::mat4 GetViewMatrix();
 	glm::mat4 GetProjMatrix();
 

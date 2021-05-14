@@ -16,11 +16,6 @@ SpotLight::~SpotLight()
 {
 }
 
-void SpotLight::Update(float deltaTime)
-{
-    _mesh->Draw(*_shader, _transform);
-}
-
 
 void SpotLight::LoadUniformValue(const unsigned int index, const Shader& shader) const
 {

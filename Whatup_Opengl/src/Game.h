@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <deque>
+
 
 class Camera;
 class GameObject;
@@ -14,6 +16,14 @@ struct GLFWwindow;
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
+struct GameObjectSort
+{
+	bool operator()(GameObject* a, GameObject* b)
+	{
+
+	}
+};
+
 class Game
 {
 public: // Global Instances
@@ -24,8 +34,10 @@ public: // Global Instances
 	static Framebuffer* GameFramebuffer;
 
 private: // GameObjects
-	std::vector<GameObject*> _gameObjects;
-	std::vector<GameObject*> _gameObjects_transparent;
+	// transparent gameobjects are placed at back of the deque.
+	// normal gameobjects area placed at front of the deque.
+	std::deque<GameObject*> _gameObjects;
+
 	std::vector<Light*> _lights;
 
 private:
@@ -48,7 +60,9 @@ public:
 	static void Initialize();
 	static void Start();
 	static void Update();
-	static void PostProcessing();
+	static void LateUpdate();
+	static void Render();
+	static void OnGUI();
 	static void End();
 
 	static void LoadLightUniform(const Shader& shader);
@@ -56,7 +70,6 @@ public:
 	static void CursorEnable();
 
 	static void AddGameObject(GameObject* go);
-	static void AddLight(Light* li);
 
 private:
 	static bool Initialize_glfw();

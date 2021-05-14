@@ -15,11 +15,6 @@ PointLight::~PointLight()
 {
 }
 
-void PointLight::Update(float deltaTime)
-{
-    _mesh->Draw(*_shader, _transform);
-}
-
 
 void PointLight::LoadUniformValue(const unsigned int index, const Shader& shader) const
 {

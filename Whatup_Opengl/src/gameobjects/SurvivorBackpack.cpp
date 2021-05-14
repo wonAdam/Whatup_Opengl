@@ -17,5 +17,13 @@ SurvivorBackpack::~SurvivorBackpack()
 
 void SurvivorBackpack::Update(float deltaTime)
 {
+}
+
+void SurvivorBackpack::LateUpdate(float deltaTime)
+{
+}
+
+void SurvivorBackpack::Render(float deltaTime)
+{
 	_model->Draw(*_shader, _transform, _outline);
 }

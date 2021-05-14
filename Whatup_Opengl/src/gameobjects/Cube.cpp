@@ -16,5 +16,13 @@ Cube::~Cube()
 
 void Cube::Update(float deltaTime)
 {
+}
+
+void Cube::LateUpdate(float deltaTime)
+{
+}
+
+void Cube::Render(float deltaTime)
+{
 	_mesh->Draw(*_shader, _transform);
 }

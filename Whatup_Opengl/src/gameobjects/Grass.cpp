@@ -18,5 +18,13 @@ Grass::~Grass()
 
 void Grass::Update(float deltaTime)
 {
+}
+
+void Grass::LateUpdate(float deltaTime)
+{
+}
+
+void Grass::Render(float deltaTime)
+{
 	_mesh->Draw(*_shader, _transform);
 }

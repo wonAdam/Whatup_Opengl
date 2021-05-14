@@ -18,5 +18,13 @@ DogeCube::~DogeCube()
 
 void DogeCube::Update(float deltaTime)
 {
-	_mesh->Draw(*_shader, _transform, _outline);
+}
+
+void DogeCube::LateUpdate(float deltaTime)
+{
+}
+
+void DogeCube::Render(float deltaTime)
+{
+    _mesh->Draw(*_shader, _transform, _outline);
 }

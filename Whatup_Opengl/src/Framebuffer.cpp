@@ -56,12 +56,13 @@ void Framebuffer::Bind(bool self)
 	glBindFramebuffer(GL_FRAMEBUFFER, self ? _FBO : 0);
 	if (self) {
 		GLCall(glEnable(GL_DEPTH_TEST));
+		GLCall(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
 	}
 	else {
 		GLCall(glDisable(GL_DEPTH_TEST));
+		GLCall(glClearColor(0.9f, 0.9f, 0.9f, 1.0f));
 	}
 
-	GLCall(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
 	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 }
 
@@ -69,9 +70,7 @@ void Framebuffer::Bind(bool self)
 void Framebuffer::Draw()
 {
 	_shader->use();
-	GLCall(glDisable(GL_CULL_FACE));
 	GLCall(glBindVertexArray(_quadVAO));
 	GLCall(glBindTexture(GL_TEXTURE_2D, _texColorBuffer));	// use the color attachment texture as the texture of the quad plane
 	GLCall(glDrawArrays(GL_TRIANGLES, 0, 6));
-	GLCall(glEnable(GL_CULL_FACE));
 }

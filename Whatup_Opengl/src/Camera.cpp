@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_inverse.hpp>
 
 #include "Game.h"
+#include "GLMacro.h"
 
 Camera::Camera(Transform transform)
 	: GameObject("Camera", transform)
@@ -20,6 +21,14 @@ Camera::~Camera()
 }
 
 void Camera::Update(float deltaTime)
+{
+}
+
+void Camera::LateUpdate(float deltaTime)
+{
+}
+
+void Camera::Render(float deltaTime)
 {
 }
 
