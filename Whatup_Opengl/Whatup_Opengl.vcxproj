@@ -231,13 +231,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\DepthTesting.frag" />
-    <None Include="shaders\DefaultFragment.frag" />
-    <None Include="shaders\ScreenFragment.frag" />
-    <None Include="shaders\ScreenVertex.vert" />
-    <None Include="shaders\LightFragment.frag" />
-    <None Include="shaders\OutlineVertShader.vert" />
-    <None Include="shaders\OutlineFragShader.frag" />
-    <None Include="shaders\DefaultVertex.vert" />
+    <None Include="shaders\Default.frag" />
+    <None Include="shaders\ScreenGrayscale.frag" />
+    <None Include="shaders\ScreenInverse.frag" />
+    <None Include="shaders\ScreenDefault.frag" />
+    <None Include="shaders\ScreenDefault.vert" />
+    <None Include="shaders\Light.frag" />
+    <None Include="shaders\Outline.vert" />
+    <None Include="shaders\Outline.frag" />
+    <None Include="shaders\Default.vert" />
+    <None Include="shaders\ScreenKernelEffect.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\container.jpg" />

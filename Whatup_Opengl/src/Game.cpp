@@ -65,7 +65,7 @@ void Game::Start()
 	// --- Core Objects --- //
 	GameGui = new Gui(Game::GameWindow);
 
-	std::shared_ptr<ScreenShader> screenShader(new ScreenShader());
+	std::shared_ptr<ScreenShader> screenShader(new ScreenShader(WO_SCREEN_DEFAULT_VSHADER, WO_SCREEN_KERNEL_FSHADER));
 	GameFramebuffer = new Framebuffer(screenShader);
 
 	GameCamera = new Camera(
@@ -122,15 +122,12 @@ void Game::Update()
 	deltaTime = time - lastFrame;
 	lastFrame = time;
 
-	// Update
 	for (GameObject* go : Instance->_gameObjects)
 		go->Update(deltaTime);
-
 }
 
 void Game::LateUpdate()
 {
-	// LateUpdate
 	for (GameObject* go : Instance->_gameObjects)
 		go->LateUpdate(deltaTime);
 }

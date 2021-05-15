@@ -5,12 +5,12 @@
 #include "GLMacro.h"
 
 OutlineShader::OutlineShader()
-	: Shader(WO_OUTLINE_VERTEX_SHADER, WO_OUTLINE_FRAGMENT_SHADER)
+	: Shader(WO_OUTLINE_VSHADER, WO_OUTLINE_FSHADER)
 {
 }
 
 OutlineShader::OutlineShader(const Transform* transform, float scale, glm::vec3 color)
-	: _transform(transform), _scale(scale), _color(color), Shader(WO_OUTLINE_VERTEX_SHADER, WO_OUTLINE_FRAGMENT_SHADER) // TODO
+	: _transform(transform), _scale(scale), _color(color), Shader(WO_OUTLINE_VSHADER, WO_OUTLINE_FSHADER) // TODO
 {
 }
 

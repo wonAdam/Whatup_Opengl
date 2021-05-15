@@ -5,7 +5,7 @@
 #include "Camera.h"
 
 DefaultShader::DefaultShader(const Transform* transform)
-	: _transform(transform), Shader(WO_DEFAULT_VERTEX_SHADER, WO_DEFAULT_FRAGMENT_SHADER)
+	: _transform(transform), Shader(WO_DEFAULT_VSHADER, WO_DEFAULT_FSHADER)
 {
 }
 

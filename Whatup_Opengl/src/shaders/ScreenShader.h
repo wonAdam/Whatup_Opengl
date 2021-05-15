@@ -8,8 +8,8 @@ class ScreenShader : public Shader
 {
 public: 
 	ScreenShader(
-		const char* vertexPath = WO_SCREEN_VERTEX_SHADER, 
-		const char* fragmentPath = WO_SCREEN_FRAGMENT_SHADER);
+		const char* vertexPath = WO_SCREEN_DEFAULT_FSHADER, 
+		const char* fragmentPath = WO_SCREEN_DEFAULT_FSHADER);
 	ScreenShader(const ScreenShader& rhs) = delete;
 	ScreenShader& operator=(const ScreenShader& rhs) = delete;
 	virtual ~ScreenShader();

@@ -6,7 +6,7 @@
 #include "GLMacro.h"
 
 LightShader::LightShader(const Transform* transform, Light::Type type)
-    : _transform(transform), _type(type), Shader(WO_DEFAULT_VERTEX_SHADER, WO_LIGHT_FRAGMENT_SHADER)
+    : _transform(transform), _type(type), Shader(WO_DEFAULT_VSHADER, WO_LIGHT_FSHADER)
 {
 }
 
