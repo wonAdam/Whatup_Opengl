@@ -114,6 +114,12 @@
     <ClCompile Include="src\shaders\ScreenShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shaders\SkyboxShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\stb_image\stb_image.h">
@@ -242,6 +248,12 @@
     <ClInclude Include="src\shaders\ScreenShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shaders\SkyboxShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\Default.vert" />
@@ -255,6 +267,8 @@
     <None Include="shaders\ScreenInverse.frag" />
     <None Include="shaders\ScreenGrayscale.frag" />
     <None Include="shaders\ScreenKernelEffect.frag" />
+    <None Include="shaders\Skybox.vert" />
+    <None Include="shaders\Skybox.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\container.jpg">

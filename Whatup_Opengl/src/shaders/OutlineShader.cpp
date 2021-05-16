@@ -31,7 +31,7 @@ void OutlineShader::Use(const std::vector<Texture>& textures) const
 	setVec3("outlineColor", _color);
 
 	// Set MVP
-	setMat4("model", _transform->GetModelMatrix());
-	setMat4("view", Game::GameCamera->GetViewMatrix());
-	setMat4("proj", Game::GameCamera->GetProjMatrix());
+	setMat4(WO_UNIFORM_MODEL, _transform->GetModelMatrix());
+	setMat4(WO_UNIFORM_VIEW, Game::GameCamera->GetViewMatrix());
+	setMat4(WO_UNIFORM_PROJ, Game::GameCamera->GetProjMatrix());
 }

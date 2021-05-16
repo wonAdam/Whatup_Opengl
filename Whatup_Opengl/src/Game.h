@@ -10,6 +10,7 @@ class Gui;
 class Light;
 class Shader;
 class Framebuffer;
+class Skybox;
 struct GLFWwindow;
 
 // settings
@@ -30,8 +31,10 @@ public: // Global Instances
 	static Game* Instance;
 	static Camera* GameCamera;
 	static Gui* GameGui;
-	static GLFWwindow* GameWindow;
 	static Framebuffer* GameFramebuffer;
+	static Skybox* GameSkybox;
+
+	static GLFWwindow* GameWindow;
 
 private: // GameObjects
 	// transparent gameobjects are placed at back of the deque.

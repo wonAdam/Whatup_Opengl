@@ -60,7 +60,6 @@ void Mesh::Draw(const Shader& shader, const Transform& transform, bool outline)
     // draw mesh
     glBindVertexArray(_VAO);
     glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
 
     // 그러고 Stencil Buffer가 1이 아닌 부분을 
     // OutlineShader로 그립니다.
@@ -76,13 +75,14 @@ void Mesh::Draw(const Shader& shader, const Transform& transform, bool outline)
 
         glBindVertexArray(_VAO);
         glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
 
         GLCall(glStencilMask(0xff));
         GLCall(glStencilFunc(GL_ALWAYS, 1, 0xff));
         //GLCall(glEnable(GL_DEPTH_TEST));
     }
 
+
+    glBindVertexArray(0);
 }
 
 void Mesh::Draw(const ScreenShader& shader)

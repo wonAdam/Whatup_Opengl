@@ -21,6 +21,7 @@ public:
 	virtual ~Texture();
 
 	static unsigned int LoadTextureFromFile(const char* path, std::string& directory, bool gamma = false);
+	static unsigned int LoadSkyboxTexture(const std::vector<std::string>& faces);
 
 private:
 	unsigned int generate_Texture(const char* path);

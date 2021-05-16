@@ -16,7 +16,7 @@ public:
 
 protected:
 	virtual void Use(const std::vector<Texture>& textures) const override;
-	friend Mesh;
+	friend class Mesh;
 
 };
 

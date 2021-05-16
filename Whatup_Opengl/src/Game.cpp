@@ -14,6 +14,7 @@
 #include "gameobjects/SurvivorBackpack.h"
 #include "Gui.h"
 #include "Framebuffer.h"
+#include "Skybox.h"
 #include "lights/Light.h"
 #include "lights/DirectionalLight.h"
 #include "lights/PointLight.h"
@@ -28,6 +29,7 @@ Camera* Game::GameCamera;
 Gui* Game::GameGui;
 GLFWwindow* Game::GameWindow;
 Framebuffer* Game::GameFramebuffer;
+Skybox* Game::GameSkybox;
 float Game::lastFrame = 0.0f;
 float Game::deltaTime = 0.0f;
 int Game::winWidth = 800;
@@ -42,11 +44,14 @@ Game::Game()
 
 Game::~Game()
 {
+	// GameCamera Included
 	for (GameObject* go : Instance->_gameObjects)
 		delete go;
 
 	GameGui->End();
 	delete GameGui;
+	delete GameSkybox;
+	delete GameFramebuffer;
 }
 
 void Game::Initialize()
@@ -65,13 +70,27 @@ void Game::Start()
 	// --- Core Objects --- //
 	GameGui = new Gui(Game::GameWindow);
 
-	std::shared_ptr<ScreenShader> screenShader(new ScreenShader(WO_SCREEN_DEFAULT_VSHADER, WO_SCREEN_KERNEL_FSHADER));
+	std::shared_ptr<ScreenShader> screenShader(new ScreenShader(WO_SCREEN_DEFAULT_VSHADER, WO_SCREEN_DEFAULT_FSHADER));
 	GameFramebuffer = new Framebuffer(screenShader);
 
 	GameCamera = new Camera(
 		glm::vec3(0.0f, 0.0f, 3.0f),
 		glm::vec3(0.0f, 0.0f, 0.0f)
 	);
+	if (GameCamera->FPSMode == false)
+		CursorEnable();
+	else
+		CursorDisable();
+
+
+	GameSkybox = new Skybox({
+			"img/skybox/right.jpg",
+			"img/skybox/left.jpg",
+			"img/skybox/top.jpg",
+			"img/skybox/bottom.jpg",
+			"img/skybox/front.jpg",
+			"img/skybox/back.jpg"
+		});
 	Game::Instance->AddGameObject(GameCamera);
 	GameGui->RegisterTransformPanel(GameCamera);
 
@@ -135,6 +154,8 @@ void Game::LateUpdate()
 void Game::Render()
 {
 	GameFramebuffer->Bind(true);
+
+	GameSkybox->Render();
 
 	// Render Non-Transparent Objects
 	auto it = Instance->_gameObjects.begin();
@@ -279,6 +300,7 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 			CursorEnable();
 		else
 			CursorDisable();
+
 	}
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);

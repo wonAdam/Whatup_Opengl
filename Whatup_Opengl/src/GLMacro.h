@@ -19,6 +19,8 @@
 #define WO_SCREEN_INVERSE_FSHADER "shaders/ScreenInverse.frag"
 #define WO_SCREEN_GRAYSCALE_FSHADER "shaders/ScreenGrayscale.frag"
 #define WO_SCREEN_KERNEL_FSHADER "shaders/ScreenKernelEffect.frag"
+#define WO_SKYBOX_VSHADER "shaders/Skybox.vert"
+#define WO_SKYBOX_FSHADER "shaders/Skybox.frag"
 
 #define WO_UNIFORM_MODEL "model"
 #define WO_UNIFORM_VIEW "view"

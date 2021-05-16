@@ -22,6 +22,7 @@ protected:
 protected:
     virtual void Use(const std::vector<Texture>& textures) const = 0;
     friend class Mesh;
+    friend class Skybox;
 
 public:
     virtual ~Shader();

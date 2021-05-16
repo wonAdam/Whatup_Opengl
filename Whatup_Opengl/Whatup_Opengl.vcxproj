@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\shaders\SkyboxShader.cpp" />
+    <ClCompile Include="src\Skybox.cpp" />
     <ClCompile Include="src\shaders\ScreenShader.cpp" />
     <ClCompile Include="src\Framebuffer.cpp" />
     <ClCompile Include="src\gameobjects\Grass.cpp" />
@@ -186,6 +188,8 @@
     <ClCompile Include="src\gameobjects\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\shaders\SkyboxShader.h" />
+    <ClInclude Include="src\Skybox.h" />
     <ClInclude Include="src\shaders\ScreenShader.h" />
     <ClInclude Include="src\Framebuffer.h" />
     <ClInclude Include="src\gameobjects\Grass.h" />
@@ -241,6 +245,8 @@
     <None Include="shaders\Outline.frag" />
     <None Include="shaders\Default.vert" />
     <None Include="shaders\ScreenKernelEffect.frag" />
+    <None Include="shaders\Skybox.frag" />
+    <None Include="shaders\Skybox.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\container.jpg" />
